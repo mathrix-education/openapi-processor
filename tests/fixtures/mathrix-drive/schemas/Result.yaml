@@ -1,0 +1,39 @@
+description: Anwser
+type: object
+additionalProperties: false
+required: [id, created_at, updated_at, user_id, series_id, questions]
+properties:
+  id:
+    description: The result id.
+    type: integer
+    example: 17
+    readOnly: true
+  created_at:
+    description: The date/time when the user was created.
+    type: string
+    format: date-time
+    readOnly: true
+  updated_at:
+    description: The date/time when the user was updated.
+    type: string
+    format: date-time
+    readOnly: true
+  user_id:
+    description: The user id.
+    type: integer
+    example: 702
+    readOnly: true
+  series_id:
+    description: The series id.
+    type: integer
+    example: 143
+  questions:
+    description: The results questions.
+    type: array
+    items:
+      allOf:
+        - $ref: '#/components/schemas/Question'
+        - type: object
+          properties:
+            answer:
+              $ref: '#/components/schemas/Answer'

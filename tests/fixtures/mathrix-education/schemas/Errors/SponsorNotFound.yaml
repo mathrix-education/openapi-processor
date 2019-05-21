@@ -1,0 +1,17 @@
+$extends:
+  Base.yaml:
+description: The request sponsor email was not found.
+required: [data]
+properties:
+  error:
+    enum: [sponsor_not_found]
+  message:
+    example: The sponsor with the email `notfound@example.com` cannot be found
+  data:
+    type: object
+    required: [email]
+    properties:
+      product_id:
+        description: The sponsor email which was not found.
+        type: integer
+        example: notfound@example.com

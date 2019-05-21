@@ -1,0 +1,7 @@
+$extends:
+  Base.yaml:
+properties:
+  type:
+    enum: [comment_answer]
+  data:
+    $ref: '../../index.yaml#/components/schemas/CommentChild'

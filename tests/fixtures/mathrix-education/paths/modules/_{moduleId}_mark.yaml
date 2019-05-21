@@ -1,0 +1,31 @@
+patch:
+  summary: Mark a module.
+  security:
+    - bearer: [logged]
+  parameters:
+    - name: moduleId
+      in: path
+      description: The module id.
+      required: true
+      schema:
+        type: int
+        example: 1655
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              description: The mark status.
+              type: string
+              enum: [view, to_revise, completed]
+  responses:
+    200:
+      description: The marked module.
+      content:
+        application/json:
+          schema:
+            $ref: '../../index.yaml#/components/schemas/Module'
+    404:
+      $ref: '../../index.yaml#/components/responses/404_ModelNotFound'

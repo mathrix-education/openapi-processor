@@ -1,0 +1,33 @@
+description: Country.
+type: object
+additionalProperties: false
+properties:
+  id:
+    description: The country id.
+    type: integer
+    readOnly: true
+    example: 33
+  name:
+    description: The country name.
+    type: string
+    example: France
+  slug:
+    description: The country slug.
+    type: string
+    example: france
+  visible:
+    description: The country visibility.
+    type: boolean
+    example: true
+  created_at:
+    description: The country creation date-time.
+    type: string
+    format: date-time
+    readOnly: true
+    nullable: true
+  updated_at:
+    description: The country last update date-time.
+    type: string
+    format: date-time
+    readOnly: true
+    nullable: true

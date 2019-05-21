@@ -1,0 +1,10 @@
+$extends:
+  Base.yaml:
+properties:
+  type:
+    enum: [pack]
+  items:
+    description: The pack items.
+    type: array
+    items:
+      $ref: '../../index.yaml#/components/schemas/ProductTraining'

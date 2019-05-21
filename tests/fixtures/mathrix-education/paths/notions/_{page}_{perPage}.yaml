@@ -1,0 +1,6 @@
+$extends:
+  ../../fragments/paths/get_{page}_{perPage}.yaml:
+    model: notion
+get:
+  security:
+    - bearer: [notions:read]

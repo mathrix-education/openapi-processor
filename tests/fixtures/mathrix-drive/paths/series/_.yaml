@@ -1,0 +1,11 @@
+$extends:
+  ../../partials/paths/index.yaml:
+    model: series
+  ../../partials/paths/post.yaml:
+    model: series
+get:
+  security:
+    - bearer: [series:read]
+post:
+  security:
+    - bearer: [series:write]

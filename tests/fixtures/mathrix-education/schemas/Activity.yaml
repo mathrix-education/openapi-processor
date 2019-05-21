@@ -1,0 +1,67 @@
+description: Activity
+type: object
+additionalProperties: false
+properties:
+  id:
+    description: The activity id.
+    type: integer
+    example: 22
+    readOnly: true
+  name:
+    description: The activity name.
+    type: string
+    example: lorem ipsum
+  type:
+    description: The activity type.
+    type: string
+    enum:
+      - video
+      - course
+      - test
+      - exercise
+      - summary
+      - flashcard
+  visible:
+    description: The activity visibility.
+    type: boolean
+  order:
+    description: The activity order.
+    type: integer
+  premium:
+    description: The activity premium state.
+    type: boolean
+    example: true
+  reviewed:
+    description: If the activty has been reviewed.
+    type: boolean
+    example: false
+  notion_id:
+    description: The activition aprent notion id.
+    type: integer
+    example: 44
+  module_count:
+    description: The number of **visible** modules linked with the activity.
+    type: integer
+    example: 5
+  created_at:
+    description: The activity creation date-time.
+    type: string
+    format: date-time
+    nullable: true
+    readOnly: true
+  updated_at:
+    description: The activity last update date-time.
+    type: string
+    format: date-time
+    nullable: true
+    readOnly: true
+  mark:
+    description: The activity status __per user__.
+    type: string
+    enum:
+      - view
+      - to_revise
+      - completed
+      - null
+    nullable: true
+    readOnly: true

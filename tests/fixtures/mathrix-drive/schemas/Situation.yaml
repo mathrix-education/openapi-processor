@@ -1,0 +1,12 @@
+description: Situation
+type: object
+properties:
+  id:
+    description: The situation id.
+    type: integer
+    example: 2
+    readOnly: true
+  name:
+    description: The situation name.
+    type: string
+    example: Sur une brettelle d'autoroute

@@ -1,0 +1,19 @@
+get:
+  summary: Get a plan
+  parameters:
+    - name: planId
+      in: path
+      description: The plan id.
+      required: true
+      schema:
+        type: int
+        enum: [v4_monthly, v4_annually, v4_bi_annually]
+  responses:
+    200:
+      description: The requested plan.
+      content:
+        application/json:
+          schema:
+            $ref: '../../index.yaml#/components/schemas/Braintree_Plan'
+    404:
+      $ref: '../../index.yaml#/components/responses/404_ModelNotFound'

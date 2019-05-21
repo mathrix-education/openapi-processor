@@ -1,0 +1,46 @@
+description: File
+type: object
+additionalProperties: false
+required: [type, path, dirname, basename, filename, extension, size, mimetype, timestamp, url]
+properties:
+  type:
+    description: The file type.
+    type: string
+    enum:
+    - file
+  path:
+    description: The file path on the CDN.
+    type: string
+    example: test/Mao.jpg
+  dirname:
+    description: The parent directory of the file.
+    type: string
+    example: test
+  basename:
+    description: The basename of the file.
+    type: string
+    example: Mao.jpg
+  filename:
+    description: The filename of the file (without extension).
+    type: string
+    example: test
+  extension:
+    description: The extension of the file.
+    type: string
+    example: jpg
+  mimetype:
+    description: The file mime/type.
+    type: string
+    example: image/jpeg
+  size:
+    description: The file size in bytes.
+    type: integer
+    example: 4096
+  timestamp:
+    description: The file last-modified timestamp.
+    type: integer
+    example: 1540371288
+  url:
+    description: The file public URL, starting with the CDN root.
+    type: string
+    example: https://cdn.mathrix.fr/test/foo.jpg

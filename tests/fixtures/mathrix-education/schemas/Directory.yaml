@@ -1,0 +1,30 @@
+description: Directory
+type: object
+additionalProperties: false
+required: [type, path, dirname, basename, filename, url]
+properties:
+  path:
+    description: The directory path.
+    type: string
+    example: test
+  dirname:
+    description: The the parent directory of the directory .
+    type: string
+    example: ""
+  basename:
+    description: The basename of the directory.
+    type: string
+    example: test
+  filename:
+    description: The filename of the directory (without extension).
+    type: string
+    example: test
+  type:
+    description: The directory type.
+    type: string
+    enum:
+    - dir
+  url:
+    description: The directory public URL, starting with the CDN root.
+    type: string
+    example: https://cdn.mathrix.fr/test/

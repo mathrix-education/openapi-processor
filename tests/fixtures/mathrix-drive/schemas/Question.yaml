@@ -1,0 +1,131 @@
+description: Question
+type: object
+#additionalProperties: false
+required: [id, situational, questions, choices, correct_choices, correction, correction_original, image,
+           image_original, sound, sound_original, video, video_original, created_at, updated_at, theme_id, situation_id]
+properties:
+  id:
+    description: The question id.
+    type: integer
+    example: 15
+    readOnly: true
+  situational:
+    description: If the question is situationnal (i.e. relies on a true photo).
+    type: boolean
+  reviewed:
+    description: If the question has been reviewed.
+    type: boolean
+  questions:
+    description: The question's questions. Can only have 1 or 2 items.
+    type: array
+    items:
+      type: string
+    example:
+      - "J'ai obtenu mon permis de conduire. La période probatoire :\n- suite à une formation traditionnelle est"
+      - " - suite à la conduite accompagnée est"
+  choices:
+    description: The question choices. Can only have 2, 3 or 4 items.
+    type: array
+    items:
+      type: string
+    example:
+      - "de 3 ans"
+      - "de 4 ans"
+      - "de 2 ans"
+      - "de 3 ans"
+  correct_choices:
+    description: >-
+      The question correct choices **indices**. Can only have 2, 3 or 4 items and cannot have more items that `choices`.
+    type: array
+    items:
+      type: integer
+    example: [0, 2]
+  correction:
+    description: The question correction as plain text.
+    type: string
+    example: >-
+      Qu'est-ce que la période probatoire ?\nC'est la période où le permis de conduire ne comporte pas encore la
+      totalité de ses points. A l'obtention du permis, j'ai un capital initial de 6 points. La période probatoire me
+      permet donc de récupérer les 6 points manquants.\n\nSa durée varie selon la formation à la conduite choisie : 2
+      ans suite à la conduite accompagnée et 3 ans suite à la conduite supervisée ou à une formation traditionnelle.
+  correction_original:
+    description: The question correction as plain text, **as it was originally imported**.
+    type: string
+    nullable: true
+    readOnly: true
+    example: >-
+      Qu'est-ce que la période probatoire ?\nC'est la période où le permis de conduire ne comporte pas encore la
+      totalité de ses points. A l'obtention du permis, j'ai un capital initial de 6 points. La période probatoire me
+      permet donc de récupérer les 6 points manquants.\n\nSa durée varie selon la formation à la conduite choisie : 2
+      ans suite à la conduite accompagnée et 3 ans suite à la conduite supervisée ou à une formation traditionnelle.
+  image:
+    description: The image CDN URI.
+    type: string
+    nullable: true
+    example: img/questions/15.jpg
+  image_original:
+    description: The image CDN URI, **as it was originally imported**.
+    type: string
+    nullable: true
+    readOnly: true
+    example: img/questions/15-original.jpg
+  sound:
+    description: The sound CDN URI.
+    type: string
+    nullable: true
+    example: sound/questions/15.mp3
+  sound_original:
+    description: The sound CDN URI, **as it was originally imported**.
+    type: string
+    nullable: true
+    readOnly: true
+    example: sound/questions/15-original.mp3
+  video:
+    description: The video CDN URI.
+    type: string
+    nullable: true
+    example: videos/questions/15.mp4
+  video_original:
+    description: The video CDN URI, **as it was originally imported**.
+    type: string
+    nullable: true
+    readOnly: true
+    example: videos/questions/15-original.mp4
+  source:
+    description: The question source.
+    type: string
+    nullable: true
+  created_at:
+    description: The date/time when the question was created.
+    type: string
+    format: date-time
+    readOnly: true
+  updated_at:
+    description: The date/time when the question was updated.
+    type: string
+    format: date-time
+    readOnly: true
+  theme_id:
+    description: The theme id.
+    type: integer
+    nullable: true
+    example: 4
+  situation_id:
+    description: The situation id.
+    type: integer
+    nullable: true
+  theme:
+    allOf:
+      - $ref: '#/components/schemas/Theme'
+    nullable: true
+    readOnly: true
+  situation:
+    allOf:
+      - $ref: '#/components/schemas/Situation'
+    nullable: true
+    readOnly: true
+  tags:
+    type: array
+    items:
+      $ref: '#/components/schemas/Tag'
+    readOnly: true

@@ -1,0 +1,45 @@
+description: Report
+type: object
+required: [id, context, type, content, status, module_id, created_at, updated_at, module]
+additionalProperties: false
+properties:
+  id:
+    description: The report id.
+    type: integer
+    readOnly: true
+    example: 14
+  context:
+    description: The report context.
+    type: string
+    example: lorem ipsum
+    nullable: true
+  type:
+    description: The report type.
+    type: string
+    example: lorem ipsum
+  content:
+    description: The report content.
+    type: string
+    example: Module id 14 was not found.
+  status:
+    description: The report status.
+    type: string
+    enum: [todo, done, validated]
+  module_id:
+    description: The module id which belongs to the report.
+    type: integer
+    example: 2845
+  created_at:
+    description: The date/time when the object was created.
+    type: string
+    format: date-time
+    readOnly: true
+  updated_at:
+    description: The date/time when the object was updated.
+    type: string
+    format: date-time
+    readOnly: true
+  module:
+    $extends:
+      Module.yaml:
+    readOnly: true

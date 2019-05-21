@@ -1,0 +1,98 @@
+type: object
+additionalProperties: false
+required: [premium, type, visible]
+properties:
+  id:
+    description: The module id.
+    type: integer
+    example: 14
+    readOnly: true
+  type:
+    description: The module type.
+    type: string
+    enum: []
+  content:
+    description: The module content.
+    type: string
+    nullable: true
+    example: null
+  questions:
+    description: The module questions.
+    type: object
+    nullable: true
+    example: null
+  choices:
+    description: The module choices.
+    type: object
+    nullable: true
+    example: null
+  solutions:
+    description: The module solutions.
+    type: object
+    nullable: true
+    example: null
+  corrections:
+    description: The module corrections.
+    type: object
+    nullable: true
+    example: null
+  options:
+    description: The module options.
+    type: object
+    nullable: true
+    example: null
+  visible:
+    description: The module visibility.
+    type: boolean
+  seo_index:
+    description: If the module should be indexed.
+    type: boolean
+  seo_title:
+    description: The module SEO title.
+    type: string
+    example: My super module SEO title
+    nullable: true
+  seo_slug:
+    description: The module SEO title slug.
+    type: string
+    example: my-super-module-seo-title
+    nullable: true
+  seo_keywords:
+    description: The module SEO keywords, comma-separated.
+    type: string
+    example: super,keywords,google
+    nullable: true
+  seo_description:
+    description: The module SEO description.
+    type: string
+    example: My super module SEO description!
+    nullable: true
+  order:
+    description: The module order.
+    type: integer
+    example: 2
+  activity_id:
+    description: The module linked activity id.
+    type: integer
+    nullable: true
+  created_at:
+    description: The module creation date-time.
+    type: string
+    format: date-time
+    nullable: true
+    readOnly: true
+  updated_at:
+    description: The module last update date-time.
+    type: string
+    format: date-time
+    nullable: true
+    readOnly: true
+  mark:
+    description: The module status __per user__.
+    type: string
+    enum:
+      - view
+      - to_revise
+      - completed
+    nullable: true
+    readOnly: true

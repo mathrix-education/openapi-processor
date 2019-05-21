@@ -1,0 +1,5 @@
+$extends:
+  Base.yaml:
+properties:
+  type:
+    enum: [premium]

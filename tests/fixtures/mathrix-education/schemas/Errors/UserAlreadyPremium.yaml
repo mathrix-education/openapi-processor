@@ -1,0 +1,17 @@
+$extends:
+  Base.yaml:
+description: User already premium.
+required: [data]
+properties:
+  error:
+    enum: [user_already_premium]
+  message:
+    example: User id `142` is already premium.
+  data:
+    type: object
+    required: [user_id]
+    properties:
+      user_id:
+        description: The user id.
+        type: integer
+        example: 142

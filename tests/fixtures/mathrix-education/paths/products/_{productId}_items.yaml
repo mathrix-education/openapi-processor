@@ -1,0 +1,37 @@
+patch:
+  summary: Set pack items
+  description: >
+    Set items to an existing pack. This method will only work if the targeted
+    product has `type` equals to `"pack"`. Also, the payload order matters, and
+    is used to determine the order of the items inside the pack.
+  security:
+    - bearer: [products:write]
+  parameters:
+    - name: productId
+      in: path
+      description: The product id.
+      required: true
+      schema:
+        type: int
+        example: 21
+  requestBody:
+    content:
+      application/json:
+        schema:
+          description: The pack items product ids.
+          type: array
+          items:
+            description: The pack items product id.
+            type: int
+          example: [15, 65, 12, 4]
+  responses:
+    200:
+      description: The patched product.
+      content:
+        application/json:
+          schema:
+            $ref: '../../index.yaml#/components/schemas/ProductPack'
+    404:
+      $ref: '../../index.yaml#/components/responses/404_ModelNotFound'
+    422:
+      $ref: '../../index.yaml#/components/responses/422_ModelValidation'

@@ -1,0 +1,8 @@
+$extends:
+  ../../fragments/paths/get_{page}_{perPage}.yaml:
+    model: notification
+get:
+  summary: Unread notifications
+  description: Retrieve unread notifications by descending creation date, paginated.
+  security:
+    - bearer: [logged]

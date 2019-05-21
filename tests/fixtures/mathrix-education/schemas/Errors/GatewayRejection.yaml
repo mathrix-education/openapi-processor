@@ -1,0 +1,17 @@
+$extends:
+  Base.yaml:
+description: The Braintree Gateway rejected the transaction.
+required: [data]
+properties:
+  error:
+    enum: [gateway_rejection]
+  message:
+    example: Lorem ipsmu dolor sit amet.
+  data:
+    type: object
+    required: [discount]
+    properties:
+      reason:
+        description: The gateway rejection reason.
+        type: string
+        enum: [fraud]

@@ -1,0 +1,6 @@
+anyOf:
+  - $ref: '../index.yaml#/components/schemas/ModuleCourse'
+  - $ref: '../index.yaml#/components/schemas/ModuleMCQ'
+  - $ref: '../index.yaml#/components/schemas/ModuleFlashcard'
+  - $ref: '../index.yaml#/components/schemas/ModuleTest'
+  - $ref: '../index.yaml#/components/schemas/ModuleStriped'

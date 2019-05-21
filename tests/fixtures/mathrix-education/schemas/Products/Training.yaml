@@ -1,0 +1,11 @@
+$extends:
+  Base.yaml:
+properties:
+  type:
+    enum: [training]
+  children:
+    description: The training child sections.
+    type: array
+    items:
+      allOf:
+        - $ref: '../../index.yaml#/components/schemas/ProductSection'

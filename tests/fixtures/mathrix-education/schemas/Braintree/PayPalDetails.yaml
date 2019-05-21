@@ -1,0 +1,35 @@
+description: >-
+  If `paymentInstrumentType` is "paypal_account", these are the details of the PayPal account used for the transaction.
+  [Full Braintree Documentation](https://developers.braintreepayments.com/reference/response/transaction/php#paypal_details)
+type: object
+properties:
+  imageUrl:
+    description: A URL that points to a PayPal image resource (a PNG file) hosted by Braintree.
+    type: string
+  payerEmail:
+    description: >-
+      The email address associated with the PayPal account that was used to create the request. This field will not be
+      populated if the PayPal transaction declines and the payment method was not previously stored in the Vault.
+    type: string
+    example: john.doe@gmail.com
+  payerFirstName:
+    description: The first name associated with the PayPal account used to create the request.
+    type: string
+    example: John
+  payerId:
+    description: The identifier for the PayPal account used in the request.
+    type: string
+  payerLastName:
+    description: The last name associated with the PayPal account used to create the request.
+    type: string
+    example: Doe
+  payerStatus:
+    description: The status of the PayPal account used to create the request.
+    type: string
+  paymentId:
+    description: The identification value of the payment within PayPal's API.
+    type: string
+  refundId:
+    description: PayPal id for a refund.
+    type: string
+

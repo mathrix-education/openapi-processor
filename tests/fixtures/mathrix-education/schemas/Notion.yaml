@@ -1,0 +1,48 @@
+description: Notion
+type: object
+additionalProperties: false
+properties:
+  id:
+    description: The notion id.
+    type: integer
+    example: 14
+    readOnly: true
+  name:
+    description: The notion name.
+    type: string
+    example: My super nice notion
+  type:
+    description: The notion type.
+    type: string
+    enum:
+    - normal
+    - premium
+    - reminder
+    - further
+  visible:
+    description: The notion visibility.
+    type: boolean
+  order:
+    description: The notion order.
+    type: integer
+    example: 2
+  chapter_id:
+    description: The notion linked chapter id.
+    type: integer
+    example: 39
+  activity_count:
+    description: The number of **visible** activities linked with the notion.
+    type: integer
+    example: 12
+  created_at:
+    description: The notion creation date-time.
+    type: string
+    format: date-time
+    nullable: true
+    readOnly: true
+  updated_at:
+    description: The notion last update date-time.
+    type: string
+    format: date-time
+    nullable: true
+    readOnly: true

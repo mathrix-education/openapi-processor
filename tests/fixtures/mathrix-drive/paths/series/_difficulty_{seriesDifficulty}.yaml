@@ -1,0 +1,4 @@
+$extends:
+  ../../partials/paths/get_key_{modelKey}.yaml:
+    model: series
+    key: difficulty

@@ -1,0 +1,66 @@
+type: object
+properties:
+  amount:
+    description: The add-on amount.
+    type: number
+    format: float
+    example: 9.85
+  currentBillingCycle:
+    description: >-
+      The add-on's current billing cycle. It is incremented each time the add-on is successfully applied. Its value
+      will always be `null` for add-ons that are not attached to a subscription.
+    type: integer
+    nullable: true
+    example: 2
+  description:
+    description: >-
+      A description of the add-on. Its value will always be `null` for add-ons that are attached to a subscription.
+    type: string
+    nullable: true
+    example: Example of an add-on description.
+  id:
+    description: The add-on identifier.
+    type: string
+    example: v4_annually_child_30
+  kind:
+    description: >-
+      The value that defines whether the modification being applied to a plan or subscription is an add-on or a
+      discount. Its value will always be `null` for add-ons that are attached to a subscription.
+    type: string
+    nullable: true
+    enum:
+    - add_on
+    - discount
+  name:
+    description: The name of the add-on.
+    type: string
+    example: Enfant supplémentaire (Annuel -30%)
+  neverExpires:
+    description: >-
+      A value indicating whether an add-on's billing cycle is set to never expire instead of running for a specific
+      number of billing cycles.
+    type: boolean
+  numberOfBillingCycles:
+    description: >-
+      Specifies the number of billing cycles of the add-on. `null` if the add-on should be applied indefinitely.
+    type: integer
+    nullable: true
+    example: 2
+  pricePerMonth:
+    description: The add-on price per month.
+    type: number
+    format: float
+    example: 6.45
+  quantity:
+    description: >-
+      The number of times this particular add-on is applied to the subscription. Its value will always be `null` for
+      add-ons that are not attached to a subscription.
+    type: integer
+    nullable: true
+    example: 2
+  trialPrice:
+    description: The add-on price for the trial period
+    type: number
+    format: float
+    nullable: true
+    example: 72.46

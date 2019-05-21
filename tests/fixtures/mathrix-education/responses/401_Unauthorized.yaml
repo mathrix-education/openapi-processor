@@ -1,0 +1,15 @@
+description: Unauthorized.
+content:
+  application/json:
+    schema:
+      type: object
+      required: [error, message]
+      properties:
+        error:
+          description: The error standardized name.
+          type: string
+          enum: [unauthorized]
+        message:
+          description: The error message.
+          type: string
+          example: lorem ipsum

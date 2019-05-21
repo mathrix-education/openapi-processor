@@ -1,0 +1,45 @@
+post:
+  summary: Reset password
+  description: Reset a password using a reset token, which is a UUID v4.
+  parameters:
+    - name: token
+      in: path
+      description: >
+        The reset token, which is a UUID v4. In non-production environments, it will always be
+        `5dfdbb0c-61a5-4ac8-bfc7-788aa16311ee` for testing purposes.
+      required: true
+      schema:
+        type: string
+        format: uuid
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            password:
+              description: The new user password.
+              type: string
+              format: password
+              example: My$uperNewPa$$w0rd
+  responses:
+    200:
+      description: The user.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                description: If the request succeeded.
+                type: boolean
+                enum: [true]
+              data:
+                description: The response data
+                type: object
+                properties:
+                  email:
+                    description: The user email
+                    type: string
+                    format: email
+                    example: john.doe@example.com

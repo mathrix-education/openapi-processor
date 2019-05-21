@@ -1,0 +1,10 @@
+$extends:
+  ../../partials/paths/get_{modelId}_{related}.yaml:
+    model: group
+    related: series
+  ../../partials/paths/patch_{modelId}_{related}.yaml:
+    model: group
+    related: series
+patch:
+  security:
+    - bearer: [groups:write]

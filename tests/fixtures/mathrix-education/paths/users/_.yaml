@@ -1,0 +1,27 @@
+post:
+  summary: Register
+  description: Create a new user. This action may be used by non-logged user.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required: [email, password]
+          properties:
+            email:
+              description: The user email.
+              type: string
+              format: email
+              example: john.doe@example.com
+            password:
+              description: The user password.
+              type: string
+              format: password
+              example: mysupermagepassword
+  responses:
+    200:
+      description: The newly created user.
+      content:
+        application/json:
+          schema:
+            $ref: '../../index.yaml#/components/schemas/User'

@@ -1,0 +1,25 @@
+openapi: 3.0.2
+info:
+  title: Mathrix Education SA API
+  description: This is the official documentation of Mathrix Education SA API.
+  contact:
+    name: Mathieu Bour
+    email: mathieu@mathrix.fr
+  version: ""
+  x-logo:
+    url: https://cdn.mathrix.fr/img/logo-redoc.png
+    href: https://mathrix.fr
+    altText: Mathrix Education Logo
+servers:
+  - url: 'https://mathrixdrive.fr/api'
+    description: The production API.
+  - url: 'https://dev.mathrixdrive.fr/api'
+    description: The development API.
+paths: {}
+components:
+  securitySchemes:
+    bearer:
+      description: The standard user authorizations.
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

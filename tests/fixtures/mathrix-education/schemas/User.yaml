@@ -1,0 +1,195 @@
+description: User
+type: object
+additionalProperties: false
+required: [id, username, email, firstname, lastname, type, points, level, daily,
+           daily_achievements, settings, grade_id, created_at, updated_at,
+           provider, premium, daily_points]
+properties:
+  id:
+    description: The user id.
+    type: integer
+    readOnly: true
+    example: 24
+  username:
+    description: The user username.
+    type: string
+    example: john.doe
+    nullable: true
+  email:
+    description: The user email address.
+    type: string
+    format: email
+    example: john.doe@example.com
+  firstname:
+    description: The user first name.
+    type: string
+    example: John
+    nullable: true
+  lastname:
+    description: The user last name.
+    type: string
+    example: Doe
+    nullable: true
+  password:
+    description: >
+      The user password. **Note that password is not required and must not be
+      provided if the user do not want to change his password**.
+    type: string
+    format: password
+    writeOnly: true
+    example: mysuperpassword
+  current_password:
+    description: >
+      The user current password. **Required if and only if a user want to change
+      his own password**. Administrators may not provide this field in their
+      requests if they want to change another user's password.
+    type: string
+    format: password
+    writeOnly: true
+    example: mysupercurrentpassword
+  scopes:
+    description: >
+      The user scopes (permissions). The scope `*` matches all. **Do not forgot
+      to keep `logged` scope!**
+    type: array
+    example: [logged, users:read, posts:write]
+  points:
+    description: The user total point count.
+    type: integer
+    example: 850
+  level:
+    description: The user level based on its points amount.
+    type: integer
+    readOnly: true
+    example: 17
+  daily:
+    description: The user daily points objective.
+    type: integer
+    example: 10
+  daily_achievements:
+    description: The number of times when the user achieve his daily objective.
+    type: integer
+    example: 14
+  settings:
+    description: The user settings.
+    type: object
+    properties:
+      sound:
+        description: If the sounds should be activated on the site for this user.
+        type: boolean
+      last_session:
+        description: >
+          The user last session (key: discipline id, value: module id).
+        type: object
+        example: {1: 1475, 2: 754, 5: 156}
+      need_paypal_refresh:
+        description: >
+          If the user has an active PayPal subscription and subsequently need
+          a payment method refresh.
+  premium_bypass:
+    description: >
+      **Visible only for admins.**
+      If the user is allowed to bypass premium subscription check **forever**.
+    type: boolean
+    example: true
+  premium_bypass_expires_at:
+    description: >
+      **Visible only for admins.**
+      If the user is allowed to bypass premium subscription check until this
+      date. This field is used by the "pack" functionality.
+    type: string
+    format: date-time
+  grade_id:
+    description: The class id which belongs to the user.
+    type: integer
+    example: 1
+    nullable: true
+  stripe_id:
+    description: >
+      **Visible only for admins.**
+      The user Stripe customer id.
+    type: string
+    readOnly: true
+    nullable: true
+    example: cus_sd4sq54
+  braintree_id:
+    description: >
+      **Visible only for admins.**
+      The user Stripe customer id.
+    type: string
+    pattern: cus_[0-9a-f]{32}
+    readOnly: true
+    nullable: true
+    example: cus_01e06898a710f3ef8c9f6e93518fd668
+  created_at:
+    description: The date/time when the object was created.
+    type: string
+    format: date-time
+    readOnly: true
+  updated_at:
+    description: The date/time when the object was updated.
+    type: string
+    format: date-time
+    readOnly: true
+  provider:
+    description: The login provider.
+    type: string
+    enum: [api, facebook]
+    readOnly: true
+  premium:
+    description: If the user has subscribed to a premium pla,.
+    type: boolean
+    example: false
+    readOnly: true
+  daily_points:
+    description: The number of points gathered by the users this day.
+    type: integer
+    example: 300
+    readOnly: true
+  stripe:
+    description: >
+      **Visible only for admins.**
+      The user's Stripe profile.
+    type: object
+    readOnly: true
+    nullable: true
+  braintree:
+    allOf:
+      - $ref: Braintree/Customer.yaml
+    description: >
+      **Visible only for admins.**
+      The user's Braintree profile.
+    type: object
+    readOnly: true
+    nullable: true
+  last_session:
+    description: The user last session.
+    type: array
+    items:
+      type: object
+      properties:
+        grade_slug:
+          description: The grade slug.
+          type: string
+          example: terminale-s
+        discipline:
+          $ref: '../index.yaml#/components/schemas/Discipline'
+        chapter:
+          $ref: '../index.yaml#/components/schemas/Chapter'
+        activity:
+          $ref: '../index.yaml#/components/schemas/Activity'
+        module:
+          $ref: '../index.yaml#/components/schemas/Module'
+  grade:
+    description: The user grade.
+    allOf:
+      - $ref: '../index.yaml#/components/schemas/Grade'
+    nullable: true
+    readOnly: true
+  purchases:
+    description: The user purchases.
+    type: array
+    items:
+      $ref: '../index.yaml#/components/schemas/Purchase'
+    nullable: true
+    readOnly: true

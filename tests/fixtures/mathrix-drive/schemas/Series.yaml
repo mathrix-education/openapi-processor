@@ -1,0 +1,22 @@
+description: Series
+type: object
+properties:
+  id:
+    description: The series id.
+    type: integer
+    example: 2
+    readOnly: true
+  name:
+    description: The series name.
+    type: string
+    example: Circuler en ville 1
+  difficulty:
+    description: The series difficulty.
+    type: string
+    enum: [easy, medium, hard, expert]
+  questions:
+    description: The series questions.
+    type: array
+    items:
+      $ref: '#/components/schemas/Question'
+    readOnly: true

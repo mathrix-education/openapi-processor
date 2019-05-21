@@ -1,0 +1,11 @@
+get:
+  summary: Index settings
+  responses:
+    200:
+      description: The settings.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../../index.yaml#/components/schemas/Setting'

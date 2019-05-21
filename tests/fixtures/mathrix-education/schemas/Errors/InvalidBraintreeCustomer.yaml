@@ -1,0 +1,19 @@
+$extends:
+  Base.yaml:
+description: >
+  The requested user is not a Braintree customer, essentially because he got no
+  `braintree_id` or his profile was not found on our Braintree account.
+required: [data]
+properties:
+  error:
+    enum: [invalid_braintree_customer]
+  message:
+    example: User id `142` is not a Braintree customer.
+  data:
+    type: object
+    required: [user_id]
+    properties:
+      user_id:
+        description: The user id.
+        type: integer
+        example: 142

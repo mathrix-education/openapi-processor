@@ -1,0 +1,13 @@
+$extends:
+  ../../fragments/paths/get_{modelId}.yaml:
+    model: module
+  ../../fragments/paths/patch_{modelId}.yaml:
+    model: module
+  ../../fragments/paths/delete_{modelId}.yaml:
+    model: module
+patch:
+  security:
+    - bearer: [modules:write]
+delete:
+  security:
+    - bearer: [modules:delete]

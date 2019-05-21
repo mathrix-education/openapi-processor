@@ -1,0 +1,22 @@
+patch:
+  summary: Unmark an activity
+  description: Unmark an activity.
+  security:
+    - bearer: [logged]
+  parameters:
+    - name: activityId
+      in: path
+      description: The activity id.
+      required: true
+      schema:
+        type: int
+        example: 5745
+  responses:
+    200:
+      description: The un-marked activity.
+      content:
+        application/json:
+          schema:
+            $ref: '../../index.yaml#/components/schemas/Activity'
+    404:
+      $ref: '../../index.yaml#/components/responses/404_ModelNotFound'

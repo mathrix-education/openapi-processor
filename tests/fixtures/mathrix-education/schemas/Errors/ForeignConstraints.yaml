@@ -1,0 +1,24 @@
+$extends:
+  Base.yaml:
+description: >
+  The deletion was aborted because the targeted model is linked to some others.
+  The constraints failures are in the error data.
+required: [data]
+properties:
+  error:
+    enum: [foreign_constraints]
+  message:
+    example: >
+      Module id `147` cannot be delete because it has related `posts`.
+  data:
+    type: object
+    required: [user_id]
+    properties:
+      model_id:
+        description: The model id.
+        type: integer
+        example: 147
+      relation:
+        description: The relation which cause the deletion failure.
+        type: string
+        example: posts

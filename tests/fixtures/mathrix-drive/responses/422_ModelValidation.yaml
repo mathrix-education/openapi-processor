@@ -1,0 +1,10 @@
+description: Model failed to pass validation.
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        error:
+          description: The error description.
+          type: string
+          example: model_validation

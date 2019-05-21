@@ -1,0 +1,6 @@
+$extends:
+  ../../fragments/paths/post_.yaml:
+    model: report
+post:
+  security:
+    - bearer: [logged]

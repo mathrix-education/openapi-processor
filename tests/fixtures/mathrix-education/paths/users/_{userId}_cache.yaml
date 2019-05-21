@@ -1,0 +1,30 @@
+delete:
+  summary: Clear cache
+  security:
+    - bearer: [users:write]
+  parameters:
+    - name: userId
+      in: path
+      description: The targeted user id.
+      required: true
+      schema:
+        type: integer
+        example: 1585
+  responses:
+    200:
+      description: The cache clear result.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                description: If the user cache was successfully cleared.
+                type: boolean
+                example: true
+              message:
+                description: The message.
+                type: string
+                example: User with id `1585` cache was successfully cleared.
+    404:
+      $ref: '../../index.yaml#/components/responses/404_ModelNotFound'

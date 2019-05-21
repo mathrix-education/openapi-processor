@@ -1,0 +1,32 @@
+description: Category
+type: object
+additionalProperties: false
+properties:
+  id:
+    description: The category id.
+    type: integer
+    example: 22
+    readOnly: true
+  name:
+    description: The category name.
+    type: string
+    example: lorem ipsum
+  slug:
+    description: The category slug.
+    type: string
+    example: lorem-ipsum
+  image:
+    description: The category image url.
+    type: string
+    example: https://cdn.mathrix.fr/categories/lorem-ipsum.png
+    nullable: true
+  created_at:
+    description: The activity creation date-time.
+    type: string
+    format: date-time
+    nullable: true
+  updated_at:
+    description: The activity last update date-time.
+    type: string
+    format: date-time
+    nullable: true

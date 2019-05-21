@@ -1,0 +1,7 @@
+description: PaymentMethod Braintree object. [Full Braintree Documentation](https://developers.braintreepayments.com/reference/response/payment-method/php)
+type: object
+properties:
+  token:
+    description: An alphanumeric value that references a specific payment method stored in the Vault.
+    type: string
+    example: q47er5d

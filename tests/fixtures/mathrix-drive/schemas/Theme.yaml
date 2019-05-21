@@ -1,0 +1,12 @@
+description: Theme
+type: object
+properties:
+  id:
+    description: The theme id.
+    type: integer
+    example: 2
+    readOnly: true
+  name:
+    description: The theme name.
+    type: string
+    example: Le conducteur

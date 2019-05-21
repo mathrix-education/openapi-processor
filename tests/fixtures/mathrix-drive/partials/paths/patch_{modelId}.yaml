@@ -1,0 +1,33 @@
+patch:
+  summary: Patch {{ model }}
+  parameters:
+    - name: '{{ model }}Id'
+      in: path
+      description: The {{ model }} id.
+      required: true
+      schema:
+        type: integer
+        example: '{{ random_int:0,100 }}'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/{{ model | ucfirst }}'
+  responses:
+    200:
+      description: The patched {{ model }}.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                description: If the request succeeded.
+                type: boolean
+                enum: [true]
+              data:
+                $ref: '#/components/schemas/{{ model | ucfirst }}'
+    404:
+      $ref: '#/components/responses/404_ModelNotFound'
+    422:
+      $ref: '#/components/responses/422_ModelValidation'

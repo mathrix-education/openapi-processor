@@ -1,0 +1,35 @@
+description: Score.
+type: object
+additionalProperties: false
+properties:
+  id:
+    description: The score id.
+    type: integer
+    example: 17
+  score:
+    description: The score score. May be `null`.
+    type: integer
+    nullable: true
+    example: 10000
+  rank:
+    description: The score rank.
+    type: integer
+    example: 125
+  user_id:
+    description: The score user id.
+    type: integer
+    example: 135
+  data:
+    description: The score data, as an arbitrary object.
+    type: object
+    example: {}
+  created_at:
+    description: The date/time when the score was created.
+    type: string
+    format: date-time
+  updated_at:
+    description: The date/time when the score was last updated.
+    type: string
+    format: date-time
+  user:
+    $ref: '../index.yaml#/components/schemas/User'

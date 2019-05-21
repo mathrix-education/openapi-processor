@@ -1,0 +1,33 @@
+description: Purchase
+type: object
+additionalProperties: false
+properties:
+  id:
+    description: The purchase id.
+    type: integer
+    example: 14
+  transaction_id:
+    description: The Braintree Transaction id associated with this purchase.
+    type: string
+    nullable: true
+    example: x45qs4
+  user_id:
+    description: The user id which belongs to the purchase.
+    type: integer
+    example: 142
+  product_id:
+    description: The product id which belongs to the purchase.
+    type: integer
+    example: 43
+  created_at:
+    description: The date/time when the object was created.
+    type: string
+    format: date-time
+  updated_at:
+    description: The date/time when the object was updated.
+    type: string
+    format: date-time
+  product:
+    allOf:
+      - $ref: '../index.yaml#/components/schemas/Product'
+    nullable: true

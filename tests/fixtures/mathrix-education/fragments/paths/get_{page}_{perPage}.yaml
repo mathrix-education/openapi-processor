@@ -1,0 +1,48 @@
+get:
+  summary: Paginate @modelPlural@
+  description: Retrieve all @modelPlural@ by ascending ids, paginated.
+  parameters:
+    - name: page
+      in: path
+      description: The page **(starts at 0)**.
+      schema:
+        type: int
+      example: @randomInt(0,20)@
+      required: true
+    - name: perPage
+      in: path
+      description: The number of @modelPlural@ per page.
+      schema:
+        type: int
+      example: 100
+      required: true
+  responses:
+    200:
+      description: The @modelPlural@ in a paginator.
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [page, per_page, total, data]
+            properties:
+              page:
+                description: The current page.
+                type: integer
+                example: @randomInt(0,20)@
+                readOnly: true
+              per_page:
+                description: The number of @modelPlural@ per page.
+                type: integer
+                example: 100
+                readOnly: true
+              total:
+                description: The total number of @modelPlural@ processed.
+                type: integer
+                example: @randomInt(100,3000)@
+                readOnly: true
+              data:
+                description: The @modelPlural@ as an array.
+                type: array
+                items:
+                  $ref: '../../index.yaml#/components/schemas/@Model@'
+                readOnly: true

@@ -1,0 +1,6 @@
+$extends:
+  ../../fragments/paths/get_{page}_{perPage}.yaml:
+    model: activity
+get:
+  security:
+    - bearer: [activities:read]

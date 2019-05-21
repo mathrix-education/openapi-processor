@@ -1,0 +1,63 @@
+description: The Braintree customer. [Full Braintree Documentation](https://developers.braintreepayments.com/reference/response/customer/php)
+type: object
+properties:
+  androidPayCards:
+    description: Android Pay cards associated with the customer.
+    type: array
+    items:
+      $ref: '../../index.yaml#/components/schemas/Braintree_AndroidPayCard'
+  applePayCards:
+    description: Apple Pay cards associated with the customer.
+    type: array
+    items:
+      $ref: '../../index.yaml#/components/schemas/Braintree_ApplePayCard'
+  createdAt:
+    description: The date/time the object was created.
+    type: string
+    format: date-time
+  creditCards:
+    description: Credit cards associated with the customer.
+    type: array
+    items:
+      $ref: '../../index.yaml#/components/schemas/Braintree_CreditCardDetails'
+  email:
+    description: Email address composed of ASCII characters.
+    type: string
+    format: email
+    example: john.doe@example.com
+  firstName:
+    description: The first name.
+    type: string
+    example: John
+  id:
+    description: A string value representing this specific customer in the Vault.
+    type: string
+    example: cus_qs6fq57z54dq47sx4q55dxqs74x
+  lastName:
+    description: The last name.
+    type: string
+  masterpassCards:
+    description: Masterpass cards associated with the customer.
+    type: array
+    items:
+      $ref: '../../index.yaml#/components/schemas/Braintree_MasterpassCardDetails'
+  paymentMethods:
+    description: Masterpass cards associated with the customer.
+    type: array
+    items:
+      $ref: '../../index.yaml#/components/schemas/Braintree_PaymentMethod'
+  paypalAccounts:
+    description: Masterpass cards associated with the customer.
+    type: array
+    items:
+      $ref: '../../index.yaml#/components/schemas/Braintree_PayPalDetails'
+  updated:
+    description: The date/time the object last updated.
+    type: string
+    format: date-time
+  visaCheckoutCards:
+    description: Visa Checkout cards associated with the customer.
+    type: array
+    items:
+      $ref: '../../index.yaml#/components/schemas/Braintree_VisaCheckoutDetails'
+

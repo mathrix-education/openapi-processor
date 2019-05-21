@@ -1,0 +1,76 @@
+get:
+  summary: Read setting
+  parameters:
+    - name: key
+      in: path
+      description: The setting key.
+      required: true
+      schema:
+        type: string
+        pattern: '^[a-z0-9\-\_]+$'
+        example: super-setting-key
+  responses:
+    200:
+      description: The requested setting.
+      content:
+        application/json:
+          schema:
+            $ref: '../../index.yaml#/components/schemas/Setting'
+    404:
+      $ref: '../../index.yaml#/components/responses/404_ModelNotFound'
+patch:
+  summary: Write setting
+  security:
+    - bearer: [admin]
+  parameters:
+    - name: key
+      in: path
+      description: The setting key.
+      required: true
+      schema:
+        type: string
+        pattern: '^[a-z0-9\-\_]+$'
+        example: super-setting-key
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: '../../index.yaml#/components/schemas/Setting'
+  responses:
+    200:
+      description: The requested setting.
+      content:
+        application/json:
+          schema:
+            $ref: '../../index.yaml#/components/schemas/Setting'
+    404:
+      $ref: '../../index.yaml#/components/responses/404_ModelNotFound'
+delete:
+  summary: Forgot setting
+  security:
+      - bearer: [admin]
+  parameters:
+    - name: key
+      in: path
+      description: The setting key.
+      required: true
+      schema:
+        type: string
+        pattern: '^[a-z0-9\-\_]+$'
+        example: super-setting-key
+  responses:
+    200:
+      description: The deletion result.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                description: If the deletion was sucessful.
+                type: boolean
+                default: true
+              message:
+                description: The deletion message.
+                type: string
+                example: Setting key super-setting-key was successfully deleted.

@@ -1,0 +1,52 @@
+post:
+  summary: Submit result
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            series_id:
+              description: The series id.
+              type: int
+              example: 17
+            answsers:
+              type: array
+              items:
+                type: object
+                required: [id, choices]
+                properties:
+                  id:
+                    description: The question id.
+                    type: integer
+                    example: 17
+                  choices:
+                    description: The user choices for this question.
+                    type: array
+                    items:
+                      type: integer
+                    example: [0, 2]
+                example:
+                  - id: 17
+                    choices: [0, 2]
+                  - id: 23
+                    choices: [0]
+                  - id: 136
+                    choices: [2, 3]
+  responses:
+    200:
+      description: The newly created result.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                description: If the request succeeded.
+                type: boolean
+                enum: [true]
+              data:
+                $ref: '#/components/schemas/Result'
+    422:
+      $ref: '#/components/responses/422_ModelValidation'
+

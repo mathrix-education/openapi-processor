@@ -1,0 +1,6 @@
+$extends:
+  ../../fragments/paths/get_{page}_{perPage}.yaml:
+    model: user
+get:
+  security:
+    - bearer: [users:read]

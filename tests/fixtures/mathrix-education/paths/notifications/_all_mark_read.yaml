@@ -1,0 +1,19 @@
+patch:
+  summary: Mark all notifications as read
+  description: Mark all notifications as read.
+  security:
+    - bearer: [logged]
+  responses:
+    200:
+      description: The notifications in a paginator.
+      content:
+        application/json:
+          schema:
+            schema:
+              allOf:
+                - $ref: ../../schemas/Paginator.yaml
+                - properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '../../index.yaml#/components/schemas/Notification'

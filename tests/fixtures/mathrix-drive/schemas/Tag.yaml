@@ -1,0 +1,12 @@
+description: Tag
+type: object
+properties:
+  id:
+    description: The tag id.
+    type: integer
+    example: 2
+    readOnly: true
+  name:
+    description: The tag name.
+    type: string
+    example: feux adaptatifs

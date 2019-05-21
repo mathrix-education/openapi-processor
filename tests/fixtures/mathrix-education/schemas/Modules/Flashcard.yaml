@@ -1,0 +1,29 @@
+$extends:
+  Base.yaml:
+description: MCQ
+properties:
+  type:
+    type: string
+    enum: [flashcard]
+  questions:
+    type: array
+    items:
+      type: string
+    example:
+      - "Combien font $a^1$ et $a^0$ ?"
+      - "Définir le terme puissance négative."
+      - "Comment déterminer le signe de $a^n$ ?"
+      - "Quel est l'ordre d'effectuation des calculs ?"
+  corrections:
+    type: array
+    items:
+      type: string
+    example:
+      - "$a^1 = a$ et $a^0 = 1$."
+      - "Une puissance négative est l'inverse d'une puissance positive, son exposant est négatif."
+      - >-
+        Soit $a$ un nombre et $n$ un entier relatif : \n+ Si $a>0$ alors $a^n$ est positif.\n+ Si $a<0$ alors $a^n$ est
+        positif si $n$ est pair et négatif si $n$ est impair.
+      - >-
+        Dans un enchaînement de calculs, on effectue d’abord les calculs entre parenthèses, puis les puissances, puis
+        les multiplications et divisions et finalement les additions et les soustractions.

@@ -1,0 +1,16 @@
+description: Striped
+type: object
+required: [id, type, visible]
+properties:
+  id:
+    description: The module id.
+    type: integer
+    example: 14
+    readOnly: true
+  type:
+    description: The module type.
+    type: string
+    enum: [course, flashcard, mcq, test]
+  visible:
+    description: The module visibility.
+    type: boolean

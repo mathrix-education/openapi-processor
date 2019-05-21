@@ -1,0 +1,16 @@
+$extends:
+  ../../fragments/paths/get_{modelId}.yaml:
+    model: report
+  ../../fragments/paths/patch_{modelId}.yaml:
+    model: report
+  ../../fragments/paths/delete_{modelId}.yaml:
+    model: report
+get:
+  security:
+    - bearer: [reports:read]
+patch:
+  security:
+    - bearer: [reports:write]
+delete:
+  security:
+    - bearer: [reports:delete]

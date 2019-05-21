@@ -1,0 +1,26 @@
+get:
+  summary: Get a chapter by slug and grade slug
+  parameters:
+    - name: chapterSlug
+      in: path
+      description: The chapter slug.
+      required: true
+      schema:
+        type: string
+        example: lorem-ipsum
+    - name: classSlug
+      in: path
+      description: The class slug.
+      required: true
+      schema:
+        type: string
+        example: lorem-ipsum
+  responses:
+    200:
+      description: The requested chapter.
+      content:
+        application/json:
+          schema:
+            $ref: '../../index.yaml#/components/schemas/Chapter'
+    404:
+      $ref: '../../index.yaml#/components/responses/404_ModelNotFound'

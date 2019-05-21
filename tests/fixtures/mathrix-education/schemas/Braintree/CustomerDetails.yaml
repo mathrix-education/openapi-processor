@@ -1,0 +1,18 @@
+description: >-
+  The customer details used to process this transaction. If the transaction was created using Vault tokens, then the
+  `customer_details` is a snapshot of the customer in the Vault at the time the transaction was created. [Full
+  Braintree Documentation](https://developers.braintreepayments.com/reference/response/transaction/php#customer_details)
+type: object
+properties:
+  email:
+    description: The email address.
+    type: string
+    example: john.doe@example.com
+  firstName:
+    description: The first name.
+    type: string
+    example: John
+  lastName:
+    description: The last name.
+    type: string
+    example: Doe

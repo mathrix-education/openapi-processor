@@ -1,0 +1,5 @@
+$extends:
+  ../../fragments/paths/get_key_{modelKey}.yaml:
+    model: country
+    key: slug
+    example: france

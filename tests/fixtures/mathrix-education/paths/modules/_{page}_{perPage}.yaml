@@ -1,0 +1,5 @@
+$extends:
+  ../../fragments/paths/get_{page}_{perPage}.yaml: {model: module}
+get:
+  security:
+    - bearer: [modules:read]

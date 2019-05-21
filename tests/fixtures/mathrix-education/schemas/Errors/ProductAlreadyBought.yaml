@@ -1,0 +1,21 @@
+$extends:
+  Base.yaml:
+description: The request product has been already bought by the user.
+required: [data]
+properties:
+  error:
+    enum: [product_already_bought]
+  message:
+    example: User id `752` has already bought product id `27`
+  data:
+    type: object
+    required: [user_id, product_id]
+    properties:
+      user_id:
+        description: The user id.
+        type: integer
+        example: 752
+      product_id:
+        description: The product id.
+        type: integer
+        example: 27

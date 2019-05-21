@@ -1,0 +1,38 @@
+$extends:
+  Base.yaml:
+description: Test
+properties:
+  type:
+    type: string
+    enum: [test]
+  content:
+    type: string
+    example: "20-- <span class='v2_test_enonce'></span><BR/><BR/>On considère la fonction.\n$$g(x)=\\frac{..."
+  questions:
+    type: array
+    items:
+      type: string
+    example:
+      - "1-  Déterminer l'ensemble de définition de la fonction $g.$"
+      - "2-  Calculer la limite de $g$ en $1$ par valeur inférieure et par valeur supérieure puis conclure."
+      - "3-  Déduire de tout ce qui précède, le prolongement par continuité $G$ de la fonction $g$ en $1.$"
+  solutions:
+    type: array
+    items:
+      type: array
+      items:
+        type: integer
+    example: [[2, 2], [2, 2], [1, 1]]
+  corrections:
+    type: array
+    items:
+      type: array
+      items:
+        type: string
+    example:
+      - - "Déterminons l'ensemble de définition de a fonction $g.$ Soit $D_{g}$ cet ensemble de définition.\n..."
+        - "Posons\n$$ \\begin{aligned} \nx-1&=0\\\\\nx-1&=0\\Longrightarrow x=1.\\\\\n\\end{aligned} $$ \n Donc..."
+      - - "Comme $1$ n'appartient pas au domaine de définition de $g$ Nous allons anticiper l'indétermination et..."
+        - "De la même manière on obtient :\n$$\\lim_{x\\rightarrow 1^+}g(x)=\\frac32.$$\nEssayons ensemble pour..."
+      - - "D'après le cours, le prolongement par continuité $G$ de $g$\nest définit par : \n$$\\left\\{..."
+        - "Et de plus, d 'après la question précédente, \n$$\\lim_{x\\rightarrow 1}g(x)=\\frac32 \\in \\mathbb{R}.$$..."

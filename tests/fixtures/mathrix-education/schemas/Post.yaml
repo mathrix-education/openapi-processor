@@ -1,0 +1,41 @@
+description: Post
+type: object
+additionalProperties: false
+properties:
+  id:
+    description: The post id.
+    type: integer
+    readOnly: true
+    example: 14
+  title:
+    description: The post title.
+    type: string
+    example: My super nice post
+  slug:
+    description: The post slug.
+    type: string
+    example: my-super-nice-post
+  module_id:
+    description: The module id which belongs to the post.
+    type: integer
+    example: 457
+  category_id:
+    description: The category id which belongs to the post.
+    type: integer
+    example: 4
+  user_id:
+    description: The user (author) id which belongs to the post.
+    type: integer
+    example: 4152
+  created_at:
+    description: The date/time when the object was created.
+    type: string
+    format: date-time
+    readOnly: true
+  updated_at:
+    description: The date/time when the object was updated.
+    type: string
+    readOnly: true
+  module:
+    allOf:
+      - $ref: '../index.yaml#/components/schemas/Module'

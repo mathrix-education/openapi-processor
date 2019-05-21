@@ -1,0 +1,43 @@
+description: Discount.
+type: object
+additionalProperties: false
+properties:
+  id:
+    description: The discount id.
+    type: integer
+    example: 33
+  code:
+    description: The discount code.
+    type: string
+    example: MODEMACHINE2018
+  type:
+    description: The discount type.
+    type: string
+    enum:
+    - percentage
+    - absolute
+  value:
+    description: The discount value is euro (€).
+    type: integer
+    example: 20.50
+  counter:
+    description: The discount counter (e.g. the number of time the discount can be used). `-1` means unlimited times.
+    type: integer
+    example: 93
+  expire_at:
+    description: >-
+      The discount expiration date/time. After this date, the discount is considered as expired and cannot be used
+      anymore
+    type: string
+    format: date-time
+    nullable: true
+  created_at:
+    description: The country creation date-time.
+    type: string
+    format: date-time
+    nullable: true
+  updated_at:
+    description: The country last update date-time.
+    type: string
+    format: date-time
+    nullable: true

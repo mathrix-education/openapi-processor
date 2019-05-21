@@ -1,0 +1,121 @@
+post:
+  summary: Upload a file
+  description: Upload a file to the CDN.
+  security:
+    - bearer: [files:write]
+  parameters:
+    - name: path
+      in: path
+      description: >-
+        The file path on the CDN. For example, if you want to upload the file to {CDN}/img/logo.png, then the upload URI
+        will be POST https://{API}/files/img/logo.png.
+      required: true
+      schema:
+        type: string
+        example: test/foo.jpg
+  requestBody:
+    description: >-
+      The request body contains only on key, which is the file itself.
+      The filename is determined by the path in the URI. Note that the `Content-Type` is note `application/json` but
+      `application/x-www-form-urlencoded` which allow file upload.
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          type: object
+          properties:
+            file:
+              description: The file content.
+              type: object
+  responses:
+    200:
+      description: The uploaded file metadata.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/File'
+
+get:
+  summary: Get file info
+  description: Display the metadata of a file on the CDN.
+  security:
+    - bearer: [files:read]
+  parameters:
+  - name: path
+    in: path
+    description: The file path on the CDN.
+    required: true
+    schema:
+      type: string
+      example: test/foo.jpg
+  responses:
+    200:
+      description: The file metadata.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/File'
+    404:
+      $ref: '#/components/responses/404_FileNotFound'
+patch:
+  summary: Rename/Move file
+  description: Rename or move a file on the CDN.
+  security:
+    - bearer: [files:write]
+  parameters:
+  - name: path
+    in: path
+    description: The file path on the CDN.
+    required: true
+    schema:
+      type: string
+      example: test/foo.jpg
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            destination:
+              description: The file destination path on the CDN.
+              type: string
+              example: test/foo2.jpg
+  responses:
+    200:
+      description: The moved file metadata.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/File'
+    404:
+      $ref: '#/components/responses/404_FileNotFound'
+delete:
+  summary: Delete file
+  description: Delete a file on the CDN.
+  security:
+    - bearer: [files:delete]
+  parameters:
+  - name: path
+    in: path
+    description: The file path on the CDN.
+    required: true
+    schema:
+      type: string
+      example: test/foo.jpg
+  responses:
+    200:
+      description: The deletion result.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                description: If the file deletion was successful.
+                type: boolean
+                example: true
+              message:
+                description: The deletion message.
+                type: string
+                example: File `test/foo.jpg` was successfully deleted.
+    404:
+      $ref: '#/components/responses/404_FileNotFound'

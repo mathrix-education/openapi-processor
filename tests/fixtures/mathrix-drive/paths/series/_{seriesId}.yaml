@@ -1,0 +1,16 @@
+$extends:
+  ../../partials/paths/get_{modelId}.yaml:
+    model: series
+  ../../partials/paths/patch_{modelId}.yaml:
+    model: series
+  ../../partials/paths/delete_{modelId}.yaml:
+    model: series
+get:
+  security:
+    - bearer: [series:read]
+patch:
+  security:
+    - bearer: [series:write]
+delete:
+  security:
+    - bearer: [series:delete]

@@ -1,0 +1,29 @@
+description: Discipline
+type: object
+additionalProperties: false
+properties:
+  id:
+    description: The discipline id.
+    type: integer
+    example: 22
+  name:
+    description: The discipline name.
+    type: string
+    example: Maths
+  slug:
+    description: The discipline slug.
+    type: string
+    example: maths
+  beta:
+    description: The discipline beta state.
+    type: boolean
+  created_at:
+    description: The discipline creation date-time.
+    type: string
+    format: date-time
+    nullable: true
+  updated_at:
+    description: The discipline last update date-time.
+    type: string
+    format: date-time
+    nullable: true

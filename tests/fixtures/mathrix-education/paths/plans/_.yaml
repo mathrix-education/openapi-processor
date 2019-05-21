@@ -1,0 +1,11 @@
+get:
+  summary: Index plans
+  responses:
+    200:
+      description: The Braintree plans
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../../index.yaml#/components/schemas/Braintree_Plan'

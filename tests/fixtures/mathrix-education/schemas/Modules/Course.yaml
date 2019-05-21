@@ -1,0 +1,17 @@
+$extends:
+  Base.yaml:
+description: Course
+properties:
+  type:
+    type: string
+    enum: [course]
+  content:
+    type: string
+    example: >-
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a imperdiet neque. Quisque mattis, magna eget
+      ornare scelerisque, risus nibh vestibulum dolor, sed facilisis libero nisi rutrum est. Vivamus vel lectus aliquam,
+      eleifend velit sit amet, molestie est. Morbi facilisis eros vitae bibendum semper. Nulla nec vestibulum enim,
+      vitae semper tellus. Nullam sed quam nec turpis cursus ultricies. Praesent vel ipsum placerat, lacinia dolor nec,
+      maximus est. Quisque imperdiet magna et ligula ornare congue. Nam tincidunt turpis at quam feugiat pharetra.
+      Curabitur bibendum metus sit amet augue porta, id commodo odio egestas. Duis at ullamcorper massa. Nunc faucibus
+      dui nec venenatis rhoncus. Sed nisi metus, auctor sit amet tellus ut, commodo suscipit elit.

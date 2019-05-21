@@ -1,0 +1,13 @@
+$extends:
+  ../../fragments/paths/get_{modelId}.yaml:
+    model: notion
+  ../../fragments/paths/patch_{modelId}.yaml:
+    model: notion
+  ../../fragments/paths/delete_{modelId}.yaml:
+    model: notion
+patch:
+  security:
+    - bearer: [notions:write]
+delete:
+  security:
+    - bearer: [notions:delete]

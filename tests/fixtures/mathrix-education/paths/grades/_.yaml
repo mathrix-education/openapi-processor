@@ -1,0 +1,6 @@
+$extends:
+  ../../fragments/paths/post_.yaml:
+    model: grade
+post:
+  security:
+    - bearer: [grades:write]

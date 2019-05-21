@@ -1,0 +1,7 @@
+$extends:
+  ../../fragments/paths/post_.yaml:
+    model: post
+post:
+  description: Post a new post. The post author is determined from the Bearer authentication token.
+  security:
+    - bearer: [posts:write]

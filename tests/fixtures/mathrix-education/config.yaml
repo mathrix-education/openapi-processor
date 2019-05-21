@@ -1,0 +1,8 @@
+versionFrom: '../../composer.json#version'
+defaultTagGroup: Miscellaneous
+schemas:
+  schemas/Errors:
+  schemas/Braintree: Braintree_
+  schemas/Modules: Module
+  schemas/Notifications: Notification
+  schemas/Products: Product

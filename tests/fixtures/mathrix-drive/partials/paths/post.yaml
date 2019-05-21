@@ -1,0 +1,24 @@
+post:
+  summary: Post {{ model }}
+  description: Create a new {{ model }}, and insert it in the database, then retrieve it.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/{{ model | ucfirst }}'
+  responses:
+    200:
+      description: The newly created {{ model }}.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                description: If the request succeeded.
+                type: boolean
+                enum: [true]
+              data:
+                $ref: '#/components/schemas/{{ model | ucfirst }}'
+    422:
+      $ref: '#/components/responses/422_ModelValidation'

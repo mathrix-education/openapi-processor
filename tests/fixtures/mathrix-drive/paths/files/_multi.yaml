@@ -1,0 +1,30 @@
+post:
+  summary: Multi-upload.
+  security:
+    - bearer: [files:write]
+  requestBody:
+    description: |-
+      The request body contains only on key, which is the file itself.
+      The filename is determined by the path in the URI. Note that the `Content-Type` is note `application/json` but
+      `application/x-www-form-urlencoded` which allow file upload.
+
+      The request body is an arbitrary object which can hold an unlimited amount of files, one per key.
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          type: object
+          properties: {}
+          example:
+            file-1: "<< file-1 >>"
+            file-2: "<< file-2 >>"
+  responses:
+    200:
+      description: The moved file metadata.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: {}
+            example:
+              file-1: 00f9b301-1a62-498a-837c-1ccdc065a3b7
+              file-2: 44405c3e-0af5-4709-805d-2f728a4cc103

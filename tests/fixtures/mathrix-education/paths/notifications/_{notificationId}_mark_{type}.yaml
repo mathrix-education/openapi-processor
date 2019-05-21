@@ -1,0 +1,29 @@
+patch:
+  summary: Mark a notification
+  description: Mark a notification as read/unread by its id. Only notification which belong to the user may be marked.
+  security:
+    - bearer: [logged]
+  parameters:
+    - name: notificationId
+      in: path
+      required: true
+      description: The notification id.
+      schema:
+        type: string
+        format: uuid
+    - name: type
+      in: path
+      required: true
+      description: The type of mark.
+      schema:
+        type: string
+        enum:
+          - read
+          - unread
+  responses:
+    200:
+      description: The marked notification.
+      content:
+        application/json:
+          schema:
+            $ref: '../../index.yaml#/components/schemas/Notification'

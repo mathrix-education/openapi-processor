@@ -1,0 +1,20 @@
+description: The JWT token.
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        token:
+          description: >
+            The token, JWT-serialized. Check [jwt.io](jwt.io) for more
+            details about JSON Web Tokens.
+          type: string
+          example: >
+            eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzUxMiJ9.eyJpc3MiOiJNYXRocml4IEVkd
+            WNhdGlvbiBBUEkiLCJzdWIiOjE4LCJhdWQiOiJNYXRocml4IEVkdWNhdGlvbiB
+            BUEkiLCJleHAiOjE1NjQ3Nzg2MzEsIm5iZiI6MTU1NjgyOTgzMSwiaWF0IjoxN
+            TU2ODI5ODMxLCJqdGkiOiI2NWFkYmU3Ny1kYmE0LTRmN2EtODMyMC1hZTEwOTI
+            0YmM2NDQifQ.Ae5bU6JaTDQnwNeTOqGNd_S_Tz7xjT6vMGjByVOhsI4dmrxpom
+            5054QDIhMiGKGfE0epQEAabU3os_KmMWw3__1hAWODFBwYOrm27Kt4oV3OfKie
+            7NrPbig4RvuxBgYAn8derTwj43vR5psyn-x4tyurj_nY3_zz13Qela5f0sjf1w
+            M3

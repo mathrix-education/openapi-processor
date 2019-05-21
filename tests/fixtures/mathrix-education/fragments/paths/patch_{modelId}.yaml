@@ -1,0 +1,26 @@
+patch:
+  summary: Patch @model@
+  parameters:
+    - name: @model@Id
+      in: path
+      description: The @model@ id.
+      required: true
+      schema:
+        type: int
+        example: @randomInt(1,1000)@
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: '../../index.yaml#/components/schemas/@Model@'
+  responses:
+    200:
+      description: The patched @model@.
+      content:
+        application/json:
+          schema:
+            $ref: '../../index.yaml#/components/schemas/@Model@'
+    404:
+      $ref: '../../index.yaml#/components/responses/404_ModelNotFound'
+    422:
+      $ref: '../../index.yaml#/components/responses/422_ModelValidation'

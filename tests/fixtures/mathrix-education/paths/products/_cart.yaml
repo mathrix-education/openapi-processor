@@ -1,0 +1,106 @@
+post:
+  summary: Validate cart
+  description: >
+    Given a sponsor email, check if the current user can benefits of an
+    affiliate discount.
+  security:
+    - bearer: [logged]
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required: [cart]
+          properties:
+            cart:
+              description: The cart product ids.
+              type: array
+              items:
+                type: integer
+              example: [17, 14]
+            discount_code:
+              description: The discount code, if any.
+              type: string
+              nullable: true
+              example: MODEMACHINE2019
+            sponsor_email:
+              description: The sponsor email, if any.
+              type: string
+              format: email
+              nullable: true
+              example: sponsor@example.com
+  responses:
+    200:
+      description: The validated cart
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [discount_code, sponsor_email, lines, sub_total, total]
+            properties:
+              discount_code:
+                description: The discount code
+                type: string
+                nullable: true
+                example: MODEMACHINE2019
+              sponsor_email:
+                description: The sponsor email
+                type: string
+                nullable: true
+                example: sponsor@example.com
+              lines:
+                description: The cart lines items
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      description: The product name or `"Parrainage"`.
+                      type: string
+                      example: Error ad ipsum ut
+                    description:
+                      description: The product description.
+                      type: string
+                      example: Error ad ipsum ut dolor sit amet consectur imit.
+                    price:
+                      description: The product price. May be be negative.
+                      type: number
+                      example: 39.70
+                    price_after_discount:
+                      description: >
+                        The line **after** the discount application. If there is
+                        no discount, it has the same value as `price`.
+                      type: number
+                      example: 29.70
+              sub_total:
+                description: >
+                  The total cart price, **before** discount application if any.
+                  It is the sum of the lines[*].price.
+                type: number
+                example: 39.70
+              total:
+                description: >
+                  The total cart price, **after** discount application if any.
+                  It is the sum of the lines[*].price_after_discount.
+                type: number
+                example: 29.70
+    400:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../index.yaml#/components/schemas/DiscountExpired'
+              - $ref: '../../index.yaml#/components/schemas/DiscountNotApplicable'
+              - $ref: '../../index.yaml#/components/schemas/InvalidSponsor'
+              - $ref: '../../index.yaml#/components/schemas/ProductAlreadyBought'
+              - $ref: '../../index.yaml#/components/schemas/ProductNotBuyable'
+    404:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../index.yaml#/components/schemas/SponsorNotFound'
+    422:
+      $ref: '../../index.yaml#/components/responses/422_ModelValidation'

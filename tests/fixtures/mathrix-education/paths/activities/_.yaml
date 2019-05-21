@@ -1,0 +1,6 @@
+$extends:
+  ../../fragments/paths/post_.yaml:
+    model: activity
+post:
+  security:
+    - bearer: [activities:write]

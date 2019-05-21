@@ -1,0 +1,28 @@
+post:
+  summary: Create subscription
+  requestBody:
+    content:
+      application/json:
+        type: object
+        required: [planId, paymentMethodNonce]
+        properties:
+          planId:
+            description: The plan id.
+            type: string
+            enum: [v4_monthly, v4_annually, v4_biannually]
+          paymentMethodNonce:
+            description: The payment method associated with the subscription.
+            type: string
+            example: fake-valid-visa-nonce
+  responses:
+    200:
+      description: The patched subscription.
+      content:
+        application/json:
+          schema:
+            $ref: '../../index.yaml#/components/schemas/Braintree_Subscription'
+    400:
+      oneOf:
+        - $ref: '../../index.yaml#/components/schemas/GatewayRejection'
+    422:
+      $ref: '../../index.yaml#/components/responses/422_ModelValidation'

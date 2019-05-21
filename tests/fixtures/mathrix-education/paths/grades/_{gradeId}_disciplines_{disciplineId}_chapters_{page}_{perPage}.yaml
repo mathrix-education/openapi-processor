@@ -1,0 +1,57 @@
+get:
+  summary: Get related discipline chapters
+  description: Retrieve all chapters by ascending order, paginated.
+  parameters:
+    - name: page
+      in: path
+      description: The page **(starts at 0)**.
+      schema:
+        type: int
+      example: 0
+      required: true
+    - name: perPage
+      in: path
+      description: The number of chapters per page.
+      schema:
+        type: int
+      example: 100
+      required: true
+    - name: scope
+      in: query
+      description: >
+        The scope of the request. Require the JWT scope `chapters:read` to see
+        all chapters.
+      schema:
+        type: string
+        enum: [all, visible]
+        default: all
+  responses:
+    200:
+      description: The chapters in a paginator.
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [page, per_page, total, data]
+            properties:
+              page:
+                description: The current page.
+                type: integer
+                example: 0
+                readOnly: true
+              per_page:
+                description: The number of chapters per page.
+                type: integer
+                example: 100
+                readOnly: true
+              total:
+                description: The total number of chapters processed.
+                type: integer
+                example: 125
+                readOnly: true
+              data:
+                description: The chapters as an array.
+                type: array
+                items:
+                  $ref: '../../index.yaml#/components/schemas/Chapter'
+                readOnly: true

@@ -1,0 +1,26 @@
+get:
+  summary: 'Get {{ model }}'
+  parameters:
+    - name: '{{ model }}Id'
+      in: path
+      description: The {{ model }} id.
+      required: true
+      schema:
+        type: integer
+        example: '{{ random_int:1,1000 }}'
+  responses:
+    '200':
+      description: The requested {{ model }}.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                description: If the request succeeded.
+                type: boolean
+                enum: [true]
+              data:
+                $ref: '#/components/schemas/{{ model | ucfirst }}'
+    404:
+      $ref: '#/components/responses/404_ModelNotFound'

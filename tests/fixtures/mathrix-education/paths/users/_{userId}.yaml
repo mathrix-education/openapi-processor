@@ -1,0 +1,25 @@
+$extends:
+  ../../fragments/paths/get_{modelId}.yaml:
+    model: user
+  ../../fragments/paths/patch_{modelId}.yaml:
+    model: user
+  ../../fragments/paths/delete_{modelId}.yaml:
+    model: user
+get:
+  description: >
+    Get a user by its id. Note that the scope `admin` is required in order to
+    get a profile which is **not** the current user.
+  security:
+    - bearer: [logged]
+  responses:
+    401:
+      $ref: '../../index.yaml#/components/responses/401_Unauthorized'
+patch:
+  description: >
+    Patch a user by its id. Note that the scope `admin` is required in order to
+    patch a profile which is **not** the current user.
+  security:
+    - bearer: [logged]
+delete:
+  security:
+    - bearer: [users:write]

@@ -1,0 +1,14 @@
+description: Success.
+content:
+  application/json:
+    schema:
+      type: object
+      required: [success, message]
+      properties:
+        success:
+          description: The error standardized name.
+          type: boolean
+          enum: [true]
+        message:
+          description: The message.
+          type: string

@@ -1,0 +1,136 @@
+description: >-
+  Represents a subscription [Full Braintree Documentation](https://developers.braintreepayments
+  .com/reference/response/subscription/php)
+type: object
+properties:
+  addOns:
+    type: array
+    items:
+      $ref: '../../index.yaml#/components/schemas/Braintree_AddOn'
+  balance:
+    description: The amount of outstanding charges associated with a subscription.
+    type: number
+    format: float
+  billingDayOfMonth:
+    description: >-
+      The value that specifies the day of the month that the gateway will charge the subscription on every billing
+      cycle.
+    type: integer
+    example: 24
+  billingPeriodEndDate:
+    description: The end date for the current billing period, regardless of subscription status.
+    type: string
+    format: date-time
+  billingPeriodStartDate:
+    description: The start date for the current billing period, regardless of subscription status.
+    type: string
+    format: date-time
+  createdAt:
+    description: The date/time the object was created.
+    type: string
+    format: date-time
+  currentBillingCycle:
+    description: >-
+      The subscription's current billing cycle. It is incremented each time the subscription passes the
+      `billingPeriodEndDate`.
+    type: integer
+    example: 5
+  daysPastDue:
+    description: The number of days that the subscription is past due.
+    type: integer
+  description:
+    description: The description of the transaction that is displayed to customers in email receipts from PayPal.
+    type: string
+  descriptor:
+    $ref: '../../index.yaml#/components/schemas/Braintree_Descriptor'
+  discounts:
+    type: array
+    items:
+      type: string
+    example: []
+  failureCount:
+    description: >-
+      The number of consecutive failed attempts by our recurring billing engine to charge a subscription. This count
+      includes the transaction attempt that caused the subscription's status to become past due, starting at 0 and
+      increasing for each failed attempt. If the subscription is active and no charge attempts failed, the count is 0.
+    type: integer
+  firstBillingDate:
+    description: The day the subscription starts billing.
+    type: string
+    format: date-time
+  id:
+    description: The string value representing a specific subscription in the Vault.
+    type: string
+    example: sub_acff87bba51130f5b995b41fb8b4ce74
+  merchantAccountId:
+    description: The merchant account ID used for the subscription. Currency is also determined by merchant account ID.
+    type: string
+    example: mathrixeducationsa
+  neverExpires:
+    description: Whether a subscription's billing cycle is set to never expire instead of running for a specific number
+      of billing cycles.
+    type: boolean
+  nextBillingDate:
+    description: The date that the gateway will try to bill the subscription again.
+    type: string
+    format: date-time
+  nextBillingPeriodAmount:
+    description: The total subscription amount for the next billing period.
+    type: number
+    example: 17.9
+  numberOfBillingCycles:
+    description: The number of billing cycles of the subscription.
+    type: integer
+  paidThroughtDate:
+    description: >-
+      The date through which the subscription has been paid. It is the `billingPeriodEndDate` at the time of the
+      last successful transaction. If the subscription is pending (has a future start date), this field is `null`.
+    type: string
+  paymentMethodToken:
+    description: An alphanumeric value that references a specific payment method stored in the Vault.
+    type: string
+    example: 7c08ba
+  planId:
+    description: The plan identifier.
+    type: string
+    example: v4_monthly
+  price:
+    description: The src price specified for a subscription, formatted like "10" or "10.00".
+    type: number
+    example: 17.9
+  status:
+    $ref: '../../index.yaml#/components/schemas/Braintree_SubscriptionStatus'
+  statusHistory:
+    description: Array of up to 50 subscription history events.
+    type: array
+    items:
+      $ref: '../../index.yaml#/components/schemas/Braintree_SubscriptionStatus'
+    example:
+    - active
+    - pending
+    - active
+  transactions:
+    description: Transactions associated with the subscription, sorted by creation date with the most recent first.
+    type: array
+    items:
+      $ref: '../../index.yaml#/components/schemas/Braintree_Transaction'
+  trialDuration:
+    description: The trial timeframe specified in a plan.
+    type: integer
+    example: 5
+  trialDurationUnit:
+    description: The trial unit specified in a plan.
+    type: string
+    enum:
+    - day
+    - month
+  trialPeriod:
+    description: A value indicating whether a subscription should begin with a trial period.
+    type: boolean
+    example: false
+  updatedAt:
+    description: >-
+      The date/time the object was last updated. If a subscription has been canceled, this value will represent the
+      date/time of cancellation.
+    type: string
+    format: date-time

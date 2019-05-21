@@ -1,0 +1,35 @@
+description: Vote
+type: object
+additionalProperties: false
+required: [id, value, user_id, created_at, updated_at]
+properties:
+  id:
+    description: The vote id.
+    type: integer
+    readOnly: true
+    example: 14
+  value:
+    description: The vote value (+1 for thumb up, -1 for thumb down).
+    type: integer
+    enum: [1, -1]
+  user_id:
+    description: The related user id.
+    type: integer
+    example: 1598
+    readOnly: true
+  comment_id:
+    description: The related comment id.
+    type: integer
+    example: 15464
+    readOnly: true
+  created_at:
+    description: The date/time when the object was created.
+    type: string
+    format: date-time
+    readOnly: true
+  updated_at:
+    description: The date/time when the object was updated.
+    type: string
+    format: date-time
+    readOnly: true
+
