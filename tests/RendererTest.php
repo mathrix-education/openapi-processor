@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @author Mathieu Bour <mathieu@mathrix.fr>
  * @copyright Mathrix Education SA.
- * @since 0.9.4-dev
+ * @since 0.9.0
  */
 class RendererTest extends TestCase
 {
@@ -18,7 +18,7 @@ class RendererTest extends TestCase
         $file = __DIR__ . "/../fixtures/mathrix-drive/partials/paths/delete_{modelId}.yaml";
         $context = ["model" => "apple"];
 
-        $out = Renderer::make()
+        $out = TemplateEngine::make()
             ->setFile($file)
             ->setContext($context)
             ->compile()

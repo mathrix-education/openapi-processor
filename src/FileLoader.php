@@ -2,17 +2,17 @@
 
 namespace Mathrix\OpenAPI\PreProcessor;
 
-use Symfony\Component\Yaml\Exception\ParseException;
+use ArrayAccess;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Class Loader.
+ * Class FileLoader.
  *
  * @author Mathieu Bour <mathieu@mathrix.fr>
  * @copyright Mathrix Education SA.
  * @since 0.9.0
  */
-class Loader
+class FileLoader
 {
     public static function make()
     {
@@ -20,15 +20,17 @@ class Loader
     }
 
 
+    /**
+     * Load a YAML file, and extend it if necessary.
+     *
+     * @param string $file The input file.
+     * @param bool $extend If the $extends key should be used.
+     *
+     * @return array|ArrayAccess
+     */
     public function load(string $file, bool $extend = true)
     {
-        try {
-            $data = Yaml::parseFile($file);
-        } catch (ParseException $exception) {
-            $exception->setParsedFile($file);
-            dd($exception);
-            throw $exception;
-        }
+        $data = Yaml::parseFile($file);
 
         if ($extend) {
             $data = $this->extends($data, dirname(realpath($file)));
@@ -38,15 +40,29 @@ class Loader
     }
 
 
-    public function write(string $file, $data)
+    /**
+     * Write data to a YAML file.
+     *
+     * @param string $file The output file.
+     * @param array|ArrayAccess $data The data to dump.
+     */
+    public function write(string $file, $data): void
     {
         file_put_contents($file, Yaml::dump($data, 13, 2));
     }
 
 
+    /**
+     * Extends a file using the key $extends
+     *
+     * @param array|ArrayAccess $data The data to extend.
+     * @param string $cwd The current working directory.
+     *
+     * @return array|ArrayAccess
+     */
     public function extends($data, $cwd)
     {
-        if (!is_array($data) && !$data instanceof \ArrayAccess) {
+        if (!is_array($data) && !$data instanceof ArrayAccess) {
             // data is not iterable, return directly
             return $data;
         } elseif (!isset($data["\$extends"])) {
@@ -65,7 +81,7 @@ class Loader
         $extendedData = [];
 
         foreach ($extends as $file => $context) {
-            $extendedData = array_merge_recursive($extendedData, Renderer::make()
+            $extendedData = array_merge_recursive($extendedData, TemplateEngine::make()
                 ->setCwd($cwd)
                 ->setFile($file)
                 ->setContext($context)

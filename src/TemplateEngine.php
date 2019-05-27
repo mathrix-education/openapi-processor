@@ -2,7 +2,9 @@
 
 namespace Mathrix\OpenAPI\PreProcessor;
 
-use Symfony\Component\Inflector\Inflector;
+use ArrayAccess;
+use Mathrix\OpenAPI\PreProcessor\Pipes\DefaultPipe;
+use Mathrix\OpenAPI\PreProcessor\Pipes\PluralizePipe;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -12,23 +14,52 @@ use Symfony\Component\Yaml\Yaml;
  * @copyright Mathrix Education SA.
  * @since 0.9.0
  */
-class Renderer
+class TemplateEngine
 {
     public const TEMPLATE_REGEX = "/\{\{\s?[a-zA-Z0-9\_\| \:\,]+\s?\}\}/";
+    private static $pipes = [
+        DefaultPipe::class,
+        PluralizePipe::class
+    ];
 
+    /** @var string The current working directory. */
     private $cwd;
+    /** @var string The file which will be rendered. */
     private $file;
+    /** @var mixed[] The context of the file (variables, etc.). */
     private $context;
+    /** @var string The file original content. */
     private $input;
+    /** @var string The file rendered content. */
     private $output;
 
-
+    /**
+     * @return TemplateEngine
+     */
     public static function make()
     {
         return new self();
     }
 
+    /**
+     * Register a pipe in the template engine.
+     *
+     * @param string $key The pipe key.
+     * @param string $class The pipe class.
+     */
+    public static function registerPipe(string $key, string $class)
+    {
+        self::$pipes[$key] = $class;
+    }
 
+
+    /**
+     * Set the current working directory.
+     *
+     * @param string $cwd
+     *
+     * @return $this
+     */
     public function setCwd(string $cwd)
     {
         $this->cwd = $cwd;
@@ -36,7 +67,13 @@ class Renderer
         return $this;
     }
 
-
+    /**
+     * Set the current input file.
+     *
+     * @param string $file
+     *
+     * @return $this
+     */
     public function setFile($file)
     {
         $this->file = realpath("$this->cwd/$file");
@@ -45,7 +82,13 @@ class Renderer
         return $this;
     }
 
-
+    /**
+     * Set the current context.
+     *
+     * @param array|ArrayAccess $context
+     *
+     * @return $this
+     */
     public function setContext($context)
     {
         $this->context = $context;
@@ -54,6 +97,11 @@ class Renderer
     }
 
 
+    /**
+     * Render all templates, replace them in the input file content and set them into the output property.
+     *
+     * @return $this
+     */
     public function compile()
     {
         preg_match_all(self::TEMPLATE_REGEX, $this->input, $matches);
@@ -69,20 +117,24 @@ class Renderer
     }
 
 
+    /**
+     * Get the string representation of the output.
+     *
+     * @return string
+     */
     public function getOutput()
     {
         return $this->output;
     }
 
-
+    /**
+     * Get the array representation of the output.
+     *
+     * @return array|ArrayAccess
+     */
     public function getParsedOutput()
     {
-        try {
-            return Yaml::parse($this->output);
-        } catch (\Exception $e) {
-            dump($this->output);
-            throw new \Exception("Unable to parse $this->file", 0, $e);
-        }
+        return Yaml::parse($this->output);
     }
 
 
@@ -120,7 +172,9 @@ class Renderer
                 $args = array_merge($args, explode(",", $pipeData[1]));
             }
 
-            if (function_exists($pipe)) {
+            if (isset(self::$pipes[$pipe])) {
+                forward_static_call_array([self::$pipes[$pipe], "transform"], $args);
+            } else if (function_exists($pipe)) {
                 $value = $pipe(...$args);
             } elseif (method_exists($this, $pipe)) {
                 $value = $this->$pipe(...$args);
@@ -128,25 +182,5 @@ class Renderer
         }
 
         return $value !== null ? $value : "";
-    }
-
-
-    // Custom pipes
-
-
-    /**
-     * @param $value
-     *
-     * @return array|string
-     */
-    private function pluralize($value)
-    {
-        return Inflector::pluralize($value);
-    }
-
-
-    private function default(...$args)
-    {
-        return $args[0];
     }
 }

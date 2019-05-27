@@ -5,21 +5,28 @@ namespace Mathrix\OpenAPI\PreProcessor;
 use UnexpectedValueException;
 
 /**
- * Class Specification.
+ * Class Wrapper.
  *
  * @author Mathieu Bour <mathieu@mathrix.fr>
  * @copyright Mathrix Education SA.
  * @since 0.9.0
  */
-class Specification
+class Wrapper
 {
-    public $srcDir;
-    public $outputFile;
+    /** @var string The OpenAPI sources directory. */
+    private $srcDir;
+    /** @var string The OpenAPI Processor output file. */
+    private $outputFile;
 
+    /** @var array The OpenAPI PathItem objects. */
     private $paths = [];
+    /** @var array The OpenAPI RequestBody objects. */
     private $requestBodies = [];
+    /** @var array The OpenAPI Response objects. */
     private $responses = [];
+    /** @var array The OpenAPI Schema objects. */
     private $schemas = [];
+    /** @var array The OpenAPI Tags objects. */
     private $tags = [];
 
 
@@ -27,9 +34,12 @@ class Specification
     {
         $srcDir = realpath(rtrim($srcDir, "\t\n\r \v/"));
 
+        if ($srcDir === false) {
+            throw new UnexpectedValueException("Sources directory $srcDir does not exist");
+        }
+
         if ($outputFile === null) {
-            $outDir = dirname($srcDir);
-            $outputFile = "$outDir/index.yaml";
+            $outputFile = "$srcDir/index.yaml";
         }
 
         $this->srcDir = $srcDir;
@@ -47,7 +57,15 @@ class Specification
         $this->merge();
     }
 
-
+    /**
+     * Load OpenAPI components (responses, requestBodies, schemas)
+     *
+     * @param string $type The components type.
+     * @param string|null $dir The directory, if different from the components type.
+     * @param string|null $prefix The prefix to apply, if any.
+     *
+     * @return $this
+     */
     private function loadComponents(string $type, string $dir = null, string $prefix = null)
     {
         $glob = "$this->srcDir/$type/" . ($dir === null ? "" : "$dir/") . "*.yaml";
@@ -56,7 +74,7 @@ class Specification
         foreach ($componentsFiles as $componentsFile) {
             $componentName = ($prefix ?? "") . str_replace(".yaml", "", basename($componentsFile));
 
-            $this->{$type}[$componentName] = Loader::make()->load($componentsFile);
+            $this->{$type}[$componentName] = FileLoader::make()->load($componentsFile);
         }
 
         return $this;
@@ -88,7 +106,7 @@ class Specification
     /**
      * Process OpenAPI paths.
      *
-     * @return Specification
+     * @return Wrapper
      */
     private function loadPaths()
     {
@@ -107,7 +125,7 @@ class Specification
                 $this->tags[] = $tag;
             }
 
-            $pathData = Loader::make()->load($pathFile);
+            $pathData = FileLoader::make()->load($pathFile);
 
             foreach ($pathData as $method => $pathItemData) {
                 $pathData[$method]["tags"] = $pathItemData["tags"] ?? [$tag];
@@ -121,10 +139,14 @@ class Specification
         return $this;
     }
 
-
+    /**
+     * Generate the OpenAPI tags objects.
+     *
+     * @return array
+     */
     private function makeTags()
     {
-        return array_map(function(string $tag) {
+        return array_map(function (string $tag) {
             return [
                 "name" => $tag,
                 "description" => "The $tag API"
@@ -133,9 +155,12 @@ class Specification
     }
 
 
+    /**
+     * Merge paths and components into the final file.
+     */
     private function merge()
     {
-        $indexData = Loader::make()->load("$this->srcDir/index.yaml");
+        $indexData = FileLoader::make()->load("$this->srcDir/index.yaml");
 
         $indexData = array_merge_recursive($indexData, [
             "paths" => $this->paths,
@@ -153,6 +178,6 @@ class Specification
             }
         }
 
-        Loader::make()->write("$this->outputFile", $indexData);
+        FileLoader::make()->write($this->outputFile, $indexData);
     }
 }

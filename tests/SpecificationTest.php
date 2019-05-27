@@ -15,7 +15,7 @@ class SpecificationTest extends TestCase
 {
     public function testCompile()
     {
-        $specification = new Specification(__DIR__ . "/fixtures/mathrix-drive");
+        $specification = new Wrapper(__DIR__ . "/fixtures/mathrix-drive");
         $specification->compile();
     }
 }

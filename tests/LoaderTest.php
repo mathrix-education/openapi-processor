@@ -16,7 +16,7 @@ class LoaderTest extends TestCase
     public function testLoad()
     {
         $file = __DIR__ . "/../fixtures/mathrix-drive/paths/groups/_.yaml";
-        $loader = new Loader();
+        $loader = new FileLoader();
         $result = $loader->load($file);
         dd($result);
     }
