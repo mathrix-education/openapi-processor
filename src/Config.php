@@ -98,7 +98,7 @@ class Config
         $realFile = realpath(dirname(self::$configurationPath) . "/$file");
 
         if ($realFile !== false) {
-            $versionFileData = json_decode(file_get_contents($realFile));
+            $versionFileData = json_decode(file_get_contents($realFile), true);
 
             return (string)self::getFromKey($versionFileData, $key);
         } else {
