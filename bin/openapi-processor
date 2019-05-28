@@ -7,7 +7,7 @@ use Monolog\Logger;
 
 try {
     $autoloaderDev = dirname(__DIR__) . "/vendor/autoload.php";
-    $autoloaderVendor = dirname(__DIR__) . "/autoload.php";
+    $autoloaderVendor = dirname(dirname(dirname(__DIR__))) . "/autoload.php";
 
     if (file_exists($autoloaderDev)) {
         require $autoloaderDev;
