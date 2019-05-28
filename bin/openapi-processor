@@ -1,0 +1,53 @@
+#!/usr/bin/php
+<?php
+// First, we need to find the autoloader
+use Mathrix\OpenAPI\Processor\Log;
+use Mathrix\OpenAPI\Processor\Wrapper;
+use Monolog\Logger;
+
+try {
+    $autoloaderDev = dirname(__DIR__) . "/vendor/autoload.php";
+    $autoloaderVendor = dirname(__DIR__) . "/autoload.php";
+
+    if (file_exists($autoloaderDev)) {
+        require $autoloaderDev;
+    } elseif (file_exists($autoloaderVendor)) {
+        require $autoloaderVendor;
+    } else {
+        throw new Exception("Unable to find autoloader, aborting.");
+    }
+
+    function usage()
+    {
+        echo "Usage: --input={input file} [--config={configuration file} --output={output file}]\n";
+        exit(0);
+    }
+
+    $args = $argv;
+    $bin = array_shift($args);
+
+    $options = [];
+    foreach ($args as $arg) {
+        $matched = preg_match("/\-\-([a-zA-Z]+)\=(.*)/", $arg, $matches);
+
+        if ($matches === false || count($matches) !== 3) {
+            usage();
+        }
+
+        $options[$matches[1]] = $matches[2];
+    }
+
+    if (!isset($options["input"])) {
+        usage();
+    }
+
+    Log::setLevel(isset($options["debug"]) ? Logger::DEBUG : Logger::INFO);
+
+    Wrapper::make()
+        ->setInputFile(realpath($options["input"]))
+        ->setConfigurationFile($options["config"] ?? null)
+        ->setOutputFile($options["output"] ?? null)
+        ->compile();
+} catch (Exception $e) {
+    Log::critical($e->getMessage() . " in {$e->getFile()} on line {$e->getLine()}");
+}
