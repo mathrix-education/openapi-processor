@@ -1,9 +1,12 @@
 {
   "name": "mathrix/openapi-processor",
   "description": "Compile OpenAPI exploded specification to valid OpenAPI v3.0.2 documents.",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "type": "library",
-  "keywords": ["openapi", "processor"],
+  "keywords": [
+    "openapi",
+    "processor"
+  ],
   "homepage": "https://github.com/mathrix-education/openapi-processor",
   "license": "MIT",
   "authors": [
@@ -39,5 +42,10 @@
     "phpunit/phpunit": "^8.1",
     "symfony/var-dumper": "^4.2"
   },
-  "non-feature-branches": ["dev"]
+  "bin": [
+    "./bin/openapi-processor"
+  ],
+  "non-feature-branches": [
+    "dev"
+  ]
 }
