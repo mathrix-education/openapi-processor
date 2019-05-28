@@ -1,6 +1,0 @@
-$extends:
-  ../../fragments/paths/get_{page}_{perPage}.yaml:
-    model: product
-get:
-  security:
-    - bearer: [products:read]

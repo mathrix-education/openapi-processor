@@ -1,7 +1,0 @@
-$extends:
-  ../../partials/paths/get_{modelId}_{related}.yaml:
-    model: theme
-    related: question
-get:
-  security:
-    - bearer: [themes:read]

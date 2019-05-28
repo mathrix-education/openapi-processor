@@ -1,6 +1,6 @@
 <?php
 
-namespace Mathrix\OpenAPI\PreProcessor\Pipes;
+namespace Mathrix\OpenAPI\Processor\Pipes;
 
 /**
  * Class DefaultBasePipe.
@@ -20,7 +20,7 @@ class DefaultPipe extends BasePipe
      *
      * @return string
      */
-    public function transform(string $input, ...$args): string
+    public function transform(?string $input, ...$args): string
     {
         return $input ?? $args[0];
     }

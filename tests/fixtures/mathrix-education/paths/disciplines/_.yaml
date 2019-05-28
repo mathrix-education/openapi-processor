@@ -1,6 +1,0 @@
-$extends:
-  ../../fragments/paths/post_.yaml:
-    model: discipline
-post:
-  security:
-    - bearer: [disciplines:write]

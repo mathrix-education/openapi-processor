@@ -1,3 +1,0 @@
-$extends:
-  ../../fragments/paths/get_{page}_{perPage}.yaml:
-    model: country

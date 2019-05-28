@@ -1,6 +1,0 @@
-$extends:
-  ../../fragments/paths/get_{page}_{perPage}.yaml:
-    model: post
-get:
-  summary: Paginate latest posts
-  description: Retrive all posts by descending creation date, paginated.

@@ -1,7 +1,9 @@
 <?php
 
-namespace Mathrix\OpenAPI\PreProcessor;
+namespace Mathrix\OpenAPI\Processor;
 
+use Mathrix\OpenAPI\Processor\Transformers\TagsTransformer;
+use Mathrix\OpenAPI\Processor\Transformers\XTagGroupsTransformer;
 use UnexpectedValueException;
 
 /**
@@ -11,12 +13,16 @@ use UnexpectedValueException;
  * @copyright Mathrix Education SA.
  * @since 0.9.0
  */
-class Wrapper
+class Wrapper extends Factory
 {
     /** @var string The OpenAPI sources directory. */
     private $srcDir;
+    /** @var string The OpenAPI Processor input file. */
+    private $inputFile;
     /** @var string The OpenAPI Processor output file. */
     private $outputFile;
+    /** @var string The OpenAPI Processor configuration file. */
+    private $configurationFile;
 
     /** @var array The OpenAPI PathItem objects. */
     private $paths = [];
@@ -30,25 +36,65 @@ class Wrapper
     private $tags = [];
 
 
-    public function __construct($srcDir, $outputFile = null)
+    /**
+     * Set the input file. Sources directory is deducted from the input file.
+     *
+     * @param string $inputFile The input file.
+     *
+     * @return $this
+     */
+    public function setInputFile(string $inputFile)
     {
-        $srcDir = realpath(rtrim($srcDir, "\t\n\r \v/"));
+        $this->inputFile = $inputFile;
+        $this->srcDir = dirname($inputFile);
+        $this->configurationFile = "$this->srcDir/configuration.yaml"; // Default configuration file
+        $this->outputFile = "$this->srcDir/output.yaml"; // Default output file
 
-        if ($srcDir === false) {
-            throw new UnexpectedValueException("Sources directory $srcDir does not exist");
-        }
-
-        if ($outputFile === null) {
-            $outputFile = "$srcDir/index.yaml";
-        }
-
-        $this->srcDir = $srcDir;
-        $this->outputFile = $outputFile;
+        return $this;
     }
 
 
+    /**
+     * Set the output file.
+     *
+     * @param string $outputFile The output file.
+     *
+     * @return $this
+     */
+    public function setOutputFile(?string $outputFile)
+    {
+        if ($outputFile !== null) {
+            $this->outputFile = $outputFile;
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * Set the configuration file.
+     *
+     * @param string $configurationFile The configuration file.
+     *
+     * @return $this
+     */
+    public function setConfigurationFile(?string $configurationFile)
+    {
+        if ($configurationFile !== null) {
+            $this->configurationFile = $configurationFile;
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * Compile the specification.
+     */
     public function compile()
     {
+        Config::load("$this->srcDir/config.yaml");
+
         $this->loadComponents("requestBodies");
         $this->loadComponents("responses");
         $this->loadComponents("schemas");
@@ -56,6 +102,7 @@ class Wrapper
 
         $this->merge();
     }
+
 
     /**
      * Load OpenAPI components (responses, requestBodies, schemas)
@@ -139,6 +186,7 @@ class Wrapper
         return $this;
     }
 
+
     /**
      * Generate the OpenAPI tags objects.
      *
@@ -160,22 +208,38 @@ class Wrapper
      */
     private function merge()
     {
-        $indexData = FileLoader::make()->load("$this->srcDir/index.yaml");
+        Log::debug("Merging specification");
 
-        $indexData = array_merge_recursive($indexData, [
-            "paths" => $this->paths,
-            "tags" => $this->makeTags(),
-            "components" => [
-                "requestBodies" => $this->requestBodies,
-                "responses" => $this->responses,
-                "schemas" => $this->schemas
+        $indexData = array_replace_recursive(
+            FileLoader::make()->load("$this->srcDir/index.yaml"),
+            [
+                "info" => [
+                    "version" => Config::version() ?? $indexData["version"] ?? "NO VERSION",
+                ],
+                "paths" => $this->paths,
+                "tags" => $this->makeTags(),
+                "components" => [
+                    "requestBodies" => $this->requestBodies,
+                    "responses" => $this->responses,
+                    "schemas" => $this->schemas
+                ]
             ]
-        ]);
+        );
 
         foreach ($indexData["components"] as $componentsClass => $components) {
             if (empty($components)) {
                 unset($indexData["components"][$componentsClass]);
             }
+        }
+
+        // Transforms
+        $transformers = [
+            new TagsTransformer(),
+            new XTagGroupsTransformer()
+        ];
+
+        foreach ($transformers as $transformer) {
+            $indexData = $transformer($indexData);
         }
 
         FileLoader::make()->write($this->outputFile, $indexData);

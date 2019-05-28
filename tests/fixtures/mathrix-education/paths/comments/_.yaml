@@ -1,9 +1,0 @@
-$extends:
-  ../../fragments/paths/post_.yaml:
-    model: comment
-post:
-  description: >
-    Post a new comment. The comment author is determined from the Bearer
-    authentication token.
-  security:
-    - bearer: [logged]

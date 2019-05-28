@@ -1,5 +1,0 @@
-$extends:
-  ../../fragments/paths/get_{page}_{perPage}.yaml: {model: chapter}
-get:
-  security:
-    - bearer: [chapters:read]

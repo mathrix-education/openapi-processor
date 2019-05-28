@@ -1,7 +1,0 @@
-$extends:
-  ../../fragments/paths/get_{modelId}_{related}_{page}_{perPage}.yaml:
-    model: category
-    related: post
-get:
-  security:
-    - bearer: [posts:read]

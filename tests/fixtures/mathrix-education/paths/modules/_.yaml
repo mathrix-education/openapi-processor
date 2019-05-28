@@ -1,6 +1,0 @@
-$extends:
-  ../../fragments/paths/post_.yaml:
-    model: module
-post:
-  security:
-    - bearer: [modules:write]

@@ -1,4 +1,0 @@
-$extends:
-  ../../partials/paths/get_{modelId}_{related}.yaml:
-    model: user
-    related: result

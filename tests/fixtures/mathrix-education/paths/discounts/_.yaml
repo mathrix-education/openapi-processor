@@ -1,6 +1,0 @@
-$extends:
-  ../../fragments/paths/post_.yaml:
-    model: discount
-post:
-  security:
-    - bearer: [discounts:write]

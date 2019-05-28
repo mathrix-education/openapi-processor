@@ -1,6 +1,0 @@
-$extends:
-  ../../fragments/paths/get_{page}_{perPage}.yaml:
-    model: discount
-get:
-  security:
-    - bearer: [discounts:read]

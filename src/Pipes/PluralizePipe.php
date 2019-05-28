@@ -1,6 +1,6 @@
 <?php
 
-namespace Mathrix\OpenAPI\PreProcessor\Pipes;
+namespace Mathrix\OpenAPI\Processor\Pipes;
 
 use Symfony\Component\Inflector\Inflector;
 

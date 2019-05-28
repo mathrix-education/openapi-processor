@@ -1,6 +1,0 @@
-$extends:
-  ../../fragments/paths/post_.yaml:
-    model: country
-post:
-  security:
-    - bearer: [countries:write]

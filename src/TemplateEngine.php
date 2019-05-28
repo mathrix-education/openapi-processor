@@ -1,10 +1,10 @@
 <?php
 
-namespace Mathrix\OpenAPI\PreProcessor;
+namespace Mathrix\OpenAPI\Processor;
 
 use ArrayAccess;
-use Mathrix\OpenAPI\PreProcessor\Pipes\DefaultPipe;
-use Mathrix\OpenAPI\PreProcessor\Pipes\PluralizePipe;
+use Mathrix\OpenAPI\Processor\Pipes\DefaultPipe;
+use Mathrix\OpenAPI\Processor\Pipes\PluralizePipe;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -14,7 +14,7 @@ use Symfony\Component\Yaml\Yaml;
  * @copyright Mathrix Education SA.
  * @since 0.9.0
  */
-class TemplateEngine
+class TemplateEngine extends Factory
 {
     public const TEMPLATE_REGEX = "/\{\{\s?[a-zA-Z0-9\_\| \:\,]+\s?\}\}/";
     private static $pipes = [
@@ -33,13 +33,6 @@ class TemplateEngine
     /** @var string The file rendered content. */
     private $output;
 
-    /**
-     * @return TemplateEngine
-     */
-    public static function make()
-    {
-        return new self();
-    }
 
     /**
      * Register a pipe in the template engine.
@@ -67,6 +60,7 @@ class TemplateEngine
         return $this;
     }
 
+
     /**
      * Set the current input file.
      *
@@ -81,6 +75,7 @@ class TemplateEngine
 
         return $this;
     }
+
 
     /**
      * Set the current context.
@@ -126,6 +121,7 @@ class TemplateEngine
     {
         return $this->output;
     }
+
 
     /**
      * Get the array representation of the output.
@@ -174,7 +170,7 @@ class TemplateEngine
 
             if (isset(self::$pipes[$pipe])) {
                 forward_static_call_array([self::$pipes[$pipe], "transform"], $args);
-            } else if (function_exists($pipe)) {
+            } elseif (function_exists($pipe)) {
                 $value = $pipe(...$args);
             } elseif (method_exists($this, $pipe)) {
                 $value = $this->$pipe(...$args);

@@ -1,4 +1,0 @@
-versionFrom: '../../composer.json#version'
-defaultTagGroup: Miscellaneous
-schemas:
-  schemas/Errors:

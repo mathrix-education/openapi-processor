@@ -1,6 +1,0 @@
-$extends:
-  ../../fragments/paths/post_.yaml:
-    model: chapter
-post:
-  security:
-    - bearer: [chapters:write]

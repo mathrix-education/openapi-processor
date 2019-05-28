@@ -1,5 +1,0 @@
-$extends:
-  ../../fragments/paths/get_key_{modelKey}.yaml:
-    model: product
-    key: slug
-    example: formation-2019

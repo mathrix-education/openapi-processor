@@ -1,8 +1,0 @@
-description: See the [recurring billing overview](https://developers.braintreepayments.com/guides/recurring-billing/overview#subscription-statuses).
-type: string
-enum:
-- Active
-- Canceled
-- Expired
-- Past Due
-- Pending

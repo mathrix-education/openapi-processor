@@ -1,6 +1,6 @@
 <?php
 
-namespace Mathrix\OpenAPI\PreProcessor;
+namespace Mathrix\OpenAPI\Processor;
 
 use ArrayAccess;
 use Symfony\Component\Yaml\Yaml;
@@ -12,14 +12,8 @@ use Symfony\Component\Yaml\Yaml;
  * @copyright Mathrix Education SA.
  * @since 0.9.0
  */
-class FileLoader
+class FileLoader extends Factory
 {
-    public static function make()
-    {
-        return new self();
-    }
-
-
     /**
      * Load a YAML file, and extend it if necessary.
      *
@@ -35,6 +29,7 @@ class FileLoader
         if ($extend) {
             $data = $this->extends($data, dirname(realpath($file)));
         }
+        Log::debug("Loaded $file");
 
         return $data;
     }
@@ -49,6 +44,7 @@ class FileLoader
     public function write(string $file, $data): void
     {
         file_put_contents($file, Yaml::dump($data, 13, 2));
+        Log::debug("Written $file");
     }
 
 

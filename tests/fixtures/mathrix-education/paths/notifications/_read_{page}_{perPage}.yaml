@@ -1,8 +1,0 @@
-$extends:
-  ../../fragments/paths/get_{page}_{perPage}.yaml:
-    model: notification
-get:
-  summary: Read notifications
-  description: Retrieve read notifications by descending creation date, paginated.
-  security:
-    - bearer: [registered]

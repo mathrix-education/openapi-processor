@@ -1,4 +1,0 @@
-$extends:
-  ../../fragments/paths/get_{modelId}_{related}_{page}_{perPage}.yaml:
-    model: product
-    related: product

@@ -1,5 +1,0 @@
-$extends:
-  ../../fragments/paths/get_key_{modelKey}.yaml:
-    model: grade
-    key: slug
-    example: seconde
