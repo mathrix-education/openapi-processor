@@ -2,7 +2,7 @@
 
 namespace Mathrix\OpenAPI\Processor\Pipes;
 
-use Symfony\Component\Inflector\Inflector;
+use Doctrine\Common\Inflector\Inflector;
 
 /**
  * Class PluralizePipe.

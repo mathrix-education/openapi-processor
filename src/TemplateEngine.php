@@ -18,8 +18,8 @@ class TemplateEngine extends Factory
 {
     public const TEMPLATE_REGEX = "/\{\{\s?[a-zA-Z0-9\_\| \:\,]+\s?\}\}/";
     private static $pipes = [
-        DefaultPipe::class,
-        PluralizePipe::class
+        "default" => DefaultPipe::class,
+        "pluralize" => PluralizePipe::class
     ];
 
     /** @var string The current working directory. */
