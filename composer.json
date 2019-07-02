@@ -1,7 +1,7 @@
 {
   "name": "mathrix/openapi-processor",
   "description": "Compile OpenAPI exploded specification to valid OpenAPI v3.0.2 documents.",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "type": "library",
   "keywords": [
     "openapi",
@@ -35,8 +35,8 @@
     "php": ">=7.1",
     "ext-json": "*",
     "symfony/yaml": "^4.2",
-    "symfony/inflector": "4.4.x-dev",
-    "monolog/monolog": "^1.24"
+    "monolog/monolog": "^1.24",
+    "doctrine/inflector": "^1.3"
   },
   "require-dev": {
     "phpunit/phpunit": "^8.1",

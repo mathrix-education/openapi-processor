@@ -77,7 +77,7 @@ class FileLoader extends Factory
         $extendedData = [];
 
         foreach ($extends as $file => $context) {
-            $extendedData = array_merge_recursive($extendedData, TemplateEngine::make()
+            $extendedData = array_replace_recursive($extendedData, TemplateEngine::make()
                 ->setCwd($cwd)
                 ->setFile($file)
                 ->setContext($context)
@@ -85,6 +85,6 @@ class FileLoader extends Factory
                 ->getParsedOutput());
         }
 
-        return array_merge_recursive($extendedData, $data);
+        return array_replace_recursive($extendedData, $data);
     }
 }
