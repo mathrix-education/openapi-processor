@@ -95,9 +95,16 @@ class Wrapper extends Factory
     {
         Config::load("$this->srcDir/config.yaml");
 
-        $this->loadComponents("requestBodies");
-        $this->loadComponents("responses");
-        $this->loadComponents("schemas");
+        $types = ["requestBodies", "responses", "schemas"];
+
+        foreach ($types as $type) {
+            $this->loadComponents($type);
+
+            foreach (Config::get($type) as $dir => $prefix) {
+                $this->loadComponents($type, $dir, $prefix);
+            }
+        }
+
         $this->loadPaths();
 
         $this->merge();
