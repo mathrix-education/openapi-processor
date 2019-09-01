@@ -1,7 +1,7 @@
 {
   "name": "mathrix/openapi-processor",
   "description": "Compile OpenAPI exploded specification to valid OpenAPI v3.0.2 documents.",
-  "version": "0.9.6",
+  "version": "0.9.7",
   "type": "library",
   "keywords": [
     "openapi",
