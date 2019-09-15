@@ -21,8 +21,8 @@ class RandomIntPipe extends BasePipe
      */
     public function transform(string $input, ...$args): string
     {
-        $min = (int)$args[0];
-        $max = (int)$args[1];
+        $min = (int)$input;
+        $max = (int)$args[0];
 
         return (string)random_int($min, $max);
     }
