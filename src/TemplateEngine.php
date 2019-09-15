@@ -7,6 +7,7 @@ namespace Mathrix\OpenAPI\Processor;
 use ArrayAccess;
 use Mathrix\OpenAPI\Processor\Pipes\DefaultPipe;
 use Mathrix\OpenAPI\Processor\Pipes\PluralizePipe;
+use Mathrix\OpenAPI\Processor\Pipes\RandomIntPipe;
 use Symfony\Component\Yaml\Yaml;
 use function array_map;
 use function array_merge;
@@ -27,8 +28,9 @@ class TemplateEngine extends Factory
     public const TEMPLATE_REGEX = '/\{\{\s?[a-zA-Z0-9\_\| \:\,]+\s?\}\}/';
 
     private static $pipes = [
-        'default'   => DefaultPipe::class,
-        'pluralize' => PluralizePipe::class,
+        'default'    => DefaultPipe::class,
+        'pluralize'  => PluralizePipe::class,
+        'random_int' => RandomIntPipe::class,
     ];
 
     /** @var string The current working directory. */
