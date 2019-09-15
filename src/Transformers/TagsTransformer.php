@@ -1,45 +1,47 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mathrix\OpenAPI\Processor\Transformers;
 
 use Mathrix\OpenAPI\Processor\Log;
+use function array_map;
+use function array_unique;
+use function preg_match;
+use function sort;
+use function ucfirst;
 
-/**
- * Class TagsTransformers.
- *
- * @author Mathieu Bour <mathieu@mathrix.fr>
- * @copyright Mathrix Education SA.
- * @since 0.9.0
- */
 class TagsTransformer extends BaseTransformer
 {
     public function __invoke(array $data)
     {
-        Log::debug("Applying " . get_class($this));
+        Log::debug('Applying ' . static::class);
 
         $bases = [];
 
-        foreach ($data["paths"] as $uri => $pathItemData) {
-            $result = preg_match("/^\/([a-z\-\_]+)\/?.*$/", $uri, $matches);
+        foreach ($data['paths'] as $uri => $pathItemData) {
+            $result = preg_match('/^\/([a-z\-\_]+)\/?.*$/', $uri, $matches);
 
-            if ($result !== false) {
-                $bases[] = $matches[1];
+            if ($result === false) {
+                continue;
             }
+
+            $bases[] = $matches[1];
         }
 
         $bases = array_unique($bases);
         sort($bases);
 
-        $tags = array_map(function ($base) {
+        $tags = array_map(static function ($base) {
             $tag = ucfirst($base);
 
             return [
-                "name" => $tag,
-                "description" => "The $tag API, which is handled by the `/$base` root API."
+                'name' => $tag,
+                'description' => "The $tag API, which is handled by the `/$base` root API.",
             ];
         }, $bases);
 
-        $data["tags"] = $tags;
+        $data['tags'] = $tags;
 
         return $data;
     }

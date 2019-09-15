@@ -1,7 +1,7 @@
 {
   "name": "mathrix/openapi-processor",
   "description": "Compile OpenAPI exploded specification to valid OpenAPI v3.0.2 documents.",
-  "version": "0.9.7",
+  "version": "1.0.0",
   "type": "library",
   "keywords": [
     "openapi",
@@ -36,16 +36,28 @@
     "ext-json": "*",
     "symfony/yaml": "^4.2",
     "monolog/monolog": "^1.24",
-    "doctrine/inflector": "^1.3"
+    "doctrine/inflector": "^1.3",
+    "mathrix/coding-standard": "0.9.1"
   },
   "require-dev": {
     "phpunit/phpunit": "^8.1",
     "symfony/var-dumper": "^4.2"
   },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@github.com:mathrix-education/coding-standard.git"
+    }
+  ],
   "bin": [
     "./bin/openapi-processor"
   ],
   "non-feature-branches": [
     "dev"
-  ]
+  ],
+  "scripts": {
+    "lint": "phpcs --report=source",
+    "lint:details": "phpcs",
+    "lint:fix": "phpcbf"
+  }
 }

@@ -1,17 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mathrix\OpenAPI\Processor;
 
 use Monolog\Handler\ErrorLogHandler;
 use Monolog\Logger;
+use function call_user_func_array;
 
 /**
- * Class Log.
- *
- * @author Mathieu Bour <mathieu@mathrix.fr>
- * @copyright Mathrix Education SA.
- * @since 0.9.0
- *
  * @method static bool debug($message, array $context = [])
  * @method static bool info($message, array $context = [])
  * @method static bool notice($message, array $context = [])
@@ -26,7 +23,6 @@ class Log
     /** @var Logger $instance The logger instance. */
     private static $instance;
 
-
     /**
      * Make the Logger instance.
      *
@@ -34,10 +30,9 @@ class Log
      */
     private static function make(int $level = Logger::DEBUG): void
     {
-        self::$instance = new Logger("default");
+        self::$instance = new Logger('default');
         self::$instance->pushHandler(new ErrorLogHandler(ErrorLogHandler::OPERATING_SYSTEM, $level));
     }
-
 
     /**
      * Set the Logger level.
@@ -49,12 +44,11 @@ class Log
         self::make($level);
     }
 
-
     /**
      * Forward static calls to the Logger instance.
      *
      * @param string $name The method name.
-     * @param array $args The method arguments.
+     * @param array  $args The method arguments.
      */
     public static function __callStatic(string $name, array $args)
     {
