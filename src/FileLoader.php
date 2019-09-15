@@ -1,24 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mathrix\OpenAPI\Processor;
 
 use ArrayAccess;
 use Symfony\Component\Yaml\Yaml;
+use function array_replace_recursive;
+use function dirname;
+use function file_put_contents;
+use function is_array;
+use function realpath;
 
-/**
- * Class FileLoader.
- *
- * @author Mathieu Bour <mathieu@mathrix.fr>
- * @copyright Mathrix Education SA.
- * @since 0.9.0
- */
 class FileLoader extends Factory
 {
     /**
      * Load a YAML file, and extend it if necessary.
      *
-     * @param string $file The input file.
-     * @param bool $extend If the $extends key should be used.
+     * @param string $file   The input file.
+     * @param bool   $extend If the $extends key should be used.
      *
      * @return array|ArrayAccess
      */
@@ -34,11 +34,10 @@ class FileLoader extends Factory
         return $data;
     }
 
-
     /**
      * Write data to a YAML file.
      *
-     * @param string $file The output file.
+     * @param string            $file The output file.
      * @param array|ArrayAccess $data The data to dump.
      */
     public function write(string $file, $data): void
@@ -47,12 +46,11 @@ class FileLoader extends Factory
         Log::debug("Written $file");
     }
 
-
     /**
      * Extends a file using the key $extends
      *
      * @param array|ArrayAccess $data The data to extend.
-     * @param string $cwd The current working directory.
+     * @param string            $cwd  The current working directory.
      *
      * @return array|ArrayAccess
      */
@@ -61,7 +59,9 @@ class FileLoader extends Factory
         if (!is_array($data) && !$data instanceof ArrayAccess) {
             // data is not iterable, return directly
             return $data;
-        } elseif (!isset($data["\$extends"])) {
+        }
+
+        if (!isset($data['$extends'])) {
             // data has not the $extends property, we need to inspect deeper
             foreach ($data as $k => $v) {
                 $data[$k] = $this->extends($v, $cwd);
@@ -71,8 +71,8 @@ class FileLoader extends Factory
         }
 
         // Now, $extends exists
-        $extends = $data["\$extends"];
-        unset($data["\$extends"]);
+        $extends = $data['$extends'];
+        unset($data['$extends']);
 
         $extendedData = [];
 

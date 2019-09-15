@@ -1,39 +1,42 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mathrix\OpenAPI\Processor;
 
-/**
- * Class Config.
- *
- * @author Mathieu Bour <mathieu@mathrix.fr>
- * @copyright Mathrix Education SA.
- * @since 0.9.0
- */
+use function array_replace_recursive;
+use function dirname;
+use function explode;
+use function file_exists;
+use function file_get_contents;
+use function json_decode;
+use function realpath;
+use function strstr;
+
 class Config
 {
     /** @var array $defaultConfiguration The default configuration. */
     public static $defaultConfiguration = [
-        "versionFrom" => null,
-        "defaultTagGroup" => "Others",
-        "schemas" => []
+        'versionFrom' => null,
+        'defaultTagGroup' => 'Others',
+        'schemas' => [],
     ];
     /** @var string $configurationPath The configuration path. */
     private static $configurationPath;
     /** @var array $configurationData The configuration data. */
     private static $configurationData;
 
-
     /**
      * Get piece of data from array.
      *
-     * @param array $data The input data.
-     * @param string $key The key, in dot notation.
+     * @param array  $data The input data.
+     * @param string $key  The key, in dot notation.
      *
      * @return array
      */
     private static function getFromKey(array $data, string $key)
     {
-        $parts = explode(".", $key);
+        $parts = explode('.', $key);
 
         foreach ($parts as $subKey) {
             if (!isset($data[$subKey])) {
@@ -45,7 +48,6 @@ class Config
 
         return $data;
     }
-
 
     /**
      * Load the configuration.
@@ -66,7 +68,6 @@ class Config
         }
     }
 
-
     /**
      * Get a configuration entry.
      *
@@ -79,7 +80,6 @@ class Config
         return self::getFromKey(self::$configurationData, $key);
     }
 
-
     /**
      * Get the version.
      *
@@ -87,13 +87,13 @@ class Config
      */
     public static function version()
     {
-        $versionFrom = Config::get("versionFrom");
+        $versionFrom = self::get('versionFrom');
 
-        if (!(bool)strstr($versionFrom, "#")) {
+        if (!(bool)strstr($versionFrom, '#')) {
             return null;
         }
 
-        [$file, $key] = explode("#", $versionFrom);
+        [$file, $key] = explode('#', $versionFrom);
 
         $realFile = realpath(dirname(self::$configurationPath) . "/$file");
 
@@ -101,8 +101,8 @@ class Config
             $versionFileData = json_decode(file_get_contents($realFile), true);
 
             return (string)self::getFromKey($versionFileData, $key);
-        } else {
-            return null;
         }
+
+        return null;
     }
 }

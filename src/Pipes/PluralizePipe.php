@@ -1,23 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mathrix\OpenAPI\Processor\Pipes;
 
 use Doctrine\Common\Inflector\Inflector;
 
-/**
- * Class PluralizePipe.
- *
- * @author Mathieu Bour <mathieu@mathrix.fr>
- * @copyright Mathrix Education SA.
- * @since 0.9.0
- */
 class PluralizePipe extends BasePipe
 {
     /**
      * Transform the input.
      *
      * @param string $input
-     * @param array $args
+     * @param array  $args
      *
      * @return string
      */
